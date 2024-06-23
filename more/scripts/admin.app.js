@@ -1,194 +1,104 @@
 const app = {
-	// baseUrl:'http://localhost:8080',
-	baseUrl:'https://topgames-gemasajaas-projects.vercel.app',
+	baseUrl:'http://localhost:8080',
+	// baseUrl:'https://topgames-gemasajaas-projects.vercel.app',
+	usernameCheckerUrl:'https://api.kitadigital.my.id/api/game',
 	body:find('body'),
+	development:true,
 	app:find('#app'),
-	menu:find('#menu'),
-	menuParent:find('#menuparent'),
-	bodydiv:find('#body'),
-	menuButtons:findall('#menu div'),
 	topLayer:find('#toplayer'),
-	moreMenutButton:find('#moremenutoggle'),
-	init(){
-		this.menuButtonsInit();
-		this.generateHomeContent();
+	finderInput:find('#finderInput'),
+	content:find('content'),
+	leftheader:find('#leftheader'),
+	header:find('header'),
+	getReqUrl(param){
+		return `${this.baseUrl}/${param}`;
 	},
-	menuButtonsInit(){
-		this.menuButtons.forEach(btn=>{
-			btn.onclick = ()=>{
-				if(btn.id !== 'HideMenu')
-					this.hideAndShow();
-				this[`open${btn.id}`]();
-			}
-		})
-		this.moreMenutButton.onclick = ()=>{
-			this.menuParent.show('flex');
-		}
+	async init(){
+		this.openInitLoading();
+		this.provideScurities();
+		this.navigationInitiator(window);
+		this.headerInit();
+		this.initCategory();
+		if(location.hash === '#Home'){
+			this.openHome();
+		}else location.hash = '#Home';
+	},
+	openInitLoading(){
+		this.initLoading = this.body.addChild(view.initLoading());
+	},
+	removeInitLoading(){
+		this.initLoading.remove();
 	},
 	hideAndShow(){
 		this.body.style.overflow = 'hidden';
 		this.topLayer.show('flex');
 	},
-	openOrder(){
-		this.topLayer.replaceChild(view.orderPage());
+	topLayerClose(){
+		this.topLayer.hide();
+		this.body.style.overflow = 'auto';
 	},
-	openFeedback(state){
-		this.topLayer.replaceChild(view.feedbackPage(state));
-	},
-	openPrice(){
-		this.topLayer.replaceChild(view.pricePage());
-	},
-	openConfig(){
-		this.topLayer.replaceChild(view.configPage());
-	},
-	showOrderCurve(){
-		return new Promise(async (resolve,reject)=>{
-			//getting visitor data
-			const visitor = await new Promise((resolve,reject)=>{
-				cOn.get({
-					url:`${app.baseUrl}/getordersdata`,
-					onload(){
-						resolve(this.getJSONResponse());
-					}
-				})
-			})
-			this.bodydiv.addChild(view.orderChartInfo(visitor));
-			resolve(true);	
-		})
-		
-	},
-	showVisitorCurve(){
-		return new Promise(async (resolve,reject)=>{
-			//getting visitor data
-				const visitor = await new Promise((resolve,reject)=>{
-					cOn.get({
-						url:`${app.baseUrl}/getvisitordata`,
-						onload(){
-							resolve(this.getJSONResponse());
-						}
-					})
-				})
-			this.bodydiv.addChild(view.visitorChartInfo(visitor));	
-			resolve(true);
-		})
-		
-	},
-	showProfitCurve(){
-		return new Promise(async (resolve,reject)=>{
-			//getting visitor data
-			const visitor = await new Promise((resolve,reject)=>{
-				cOn.get({
-					url:`${app.baseUrl}/getordersdata`,
-					onload(){
-						resolve(this.getJSONResponse());
-					}
-				})
-			})
-			this.bodydiv.addChild(view.profitChartInfo(visitor));
-			resolve(true);	
-		})
-	},
-	openBanner(){
-		this.topLayer.replaceChild(view.bannerEdit());
-	},
-	openVoucher(){
-		this.topLayer.replaceChild(view.voucherEdit());
-	},
-	openDigiDepo(){
-		this.topLayer.replaceChild(view.newDigiDepo());
-	},
-	openBroadcast(){
-		this.topLayer.replaceChild(view.sendBroadcast());
-	},
-	openTopup(){
-		this.topLayer.replaceChild(view.topupPage());
-	},
-	openUsers(){
-		this.topLayer.replaceChild(view.usersPage());
-	},
-	openAdmin(){
-		this.topLayer.replaceChild(view.usersPage(true));
-	},
-	openBrand(){
-		this.topLayer.replaceChild(view.brandIcons());
-	},
-	openNewDepoDetails(param){
-		this.topLayer.replaceChild(view.depoDetails(param));
-	},
-	openDuitkuDisbursement(){
-		this.topLayer.replaceChild(view.duitkuDisbursement());
-	},
-	async generateHomeContent(){
-		//statistik, fonnte sended message, digi products, orders count and more.
-		await this.showDataStats();
-		await this.showVisitorCurve();
-		await this.showOrderCurve();
-		await this.showProfitCurve();
-	},
-	showDataStats(){
-		return new Promise(async (resolve,reject)=>{
-			//getting visitor data
-			const stats = await new Promise((resolve,reject)=>{
-				cOn.get({
-					url:`${app.baseUrl}/getdatastats`,
-					onload(){
-						resolve(this.getJSONResponse());
-					}
-				})
-			})
-			this.bodydiv.addChild(view.statsInfo(stats));
-			resolve(true);	
-		})
-	},
-	showWarnings(message){
-		this.body.addChild(makeElement('div',{
-			style:`
-				position: fixed;
-		    background: rgb(137, 115, 223);
-		    padding: 20px;
-		    color: white;
-		    border-radius: 10px;
-		    display: flex;
-		    gap: 15px;
-		    align-items: center;
-		    top: 10px;
-		    right: 10px;
-		    max-width: 300px;
-		    font-size: 14px;
-		    border:1px solid gainsboro;
-		    z-index:15;
-			`,
-			innerHTML:`
-				<div>
-					<img src=./more/media/warningicon.png>
-				</div>
-				<div>${message}</div>
-			`,
-			onadded(){
-				setTimeout(()=>{this.remove()},2000);
+	provideScurities(){
+		document.onkeydown = (e)=>{
+			if(!this.development && e.key === 'F12'){
+				alert('Galat!!! Akses terbatas!');
+				e.preventDefault();	
 			}
-		}))
+		}
+		//some defense code.
+		if(!this.development){
+			document.oncontextmenu = (e)=>{
+				alert('Galat!!! Akses terbatas!');
+				e.preventDefault();
+			}
+		}
 	},
-	openPaymentDetails(param,param2=false,param3=false){
-		this.topLayer.replaceChild(view.paymentDetails(param,param2,param3));
+	topLayerSetTransparent(){
+		this.topLayer.style.background = 'none';
 	},
-	openUserEditor(param){
-		this.topLayer.replaceChild(view.userEditor(param));
+	topLayerSetBackground(){
+		this.topLayer.style.background = 'rgb(245 245 249)';
 	},
-	openKategori(){
-		this.topLayer.replaceChild(view.kategoriPage());
+	openDetails(param){
+		this.content.replaceChild(view.details(param));
 	},
-	openHideMenu(){
-		this.menuParent.hide();
+	openHome(){
+		this.content.replaceChild(view.home());
 	},
-	openProduk(){
-		this.topLayer.replaceChild(view.products());
+	openNewSeries(){
+		this.content.replaceChild(view.new());
 	},
-	openNewUser(){
-		this.topLayer.replaceChild(view.newUserPage());
+	initSearchInput(){
 	},
-	openCekid(){
-		this.topLayer.replaceChild(view.cekIdPage());
+	hashNavMeta:{
+		'':'openHome',
+		'#Home':'openHome',
+		'#Details':'openDetails',
+		'#New':'openNewSeries'
+	},
+	changeState(hash,data=null){
+		location.hash = hash;
+		this.hashParam = data;
+	},
+	navigationInitiator(global){
+		window.onhashchange = ()=>{
+			if(location.hash === '#Refresh')
+				return history.back();
+			// this.hideAndShow();
+			// this.topLayerSetBackground();
+			this[this.hashNavMeta[location.hash]](this.hashParam);
+		}
+	},
+	initCategory(){
+		this.leftheader.addChild(view.categories());
+	},
+	headerInit(){
+		console.log(this.app);
+		this.app.onscroll = (e)=>{
+			if(this.header.offsetHeight < e.target.scrollTop){
+				return	this.header.find('nav').hide();
+			}
+			this.header.find('nav').show('flex');
+		}
 	}
 }
 

@@ -128,132 +128,132 @@ const view = {
 				},
 				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
 			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			}
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// },
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// },
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// },
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// },
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// },
+			// {
+			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	title:'Remember When',
+			// 	smallTitle:'2024, 12 eps',
+			// 	infoDrama:{
+			// 		Judul:'Remember When',
+			// 		Sutradara:'Kin Shin Tae',
+			// 		Rating:'4/6',
+			// 		Asal:'Korsel',
+			// 		Publisher:'Netflix',
+			// 		'Jumlah Episode':'14 Episode'
+			// 	},
+			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
+			// 	sinopsis:'Ada seorang laki laki',
+			// 	downloadLinks:{
+			// 		batchs:[['Eps 1-end','fakelink']],
+			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
+			// 	},
+			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
+			// }
 		];
 		return makeElement('div',{
 			className:'showcase',
@@ -264,11 +264,34 @@ const view = {
 					app.content.isMinHeightAuto = true;
 				}else app.content.style.minHeight = '100%';
 				app.removeInitLoading();
+				console.log('called');
+			},
+			getDisplayLen(){
+				const wideList = {
+					'0_600':1,
+					'601_900':2,
+					'901_1024':3,
+					'1025':4
+				}
+				let widevalue;
+				for(let i in wideList){
+					const wide = i.split('_');
+					if(wide.length === 2){
+						if(innerWidth >= Number(wide[0]) && innerWidth <= Number(wide[1])){
+							widevalue = wideList[i];
+							break
+						}
+					}else if(innerWidth >= Number(wide[0])){
+						widevalue = wideList[i];
+						break
+					}
+				}
+				return widevalue;
 			},
 			generateItems(){
 				let isTrue = true;
 				let index = 0;
-				let displayLen = 3;
+				let displayLen = this.getDisplayLen();
 				let maxloopx = Math.ceil(param.length/displayLen);
 				for(let j=0;j<maxloopx;j++){
 					this.addChild(makeElement('div',{
@@ -359,7 +382,7 @@ const view = {
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-                <div style=width:100%;height:300px;>
+                <div style=width:100%;height:300px;border-radius:8px;overflow:hidden;>
                   <img src="${param.bannerImg}" class=fitimage>
                 </div>
                 <div class="titledesc">
@@ -513,7 +536,9 @@ const view = {
 						style:`${i===param.downloadLinks.batchs.length - 1 ? 'border-bottom:none;' : ''}`,
 						innerHTML:`
 							<div>#${i+1}. ${item[0]}</div>
-							<div class=downloadbutton id=downloadbutton>Download</div>
+							<div class=downloadbutton id=downloadbutton>
+								<img src="./more/media/downloadicon.png">Download
+							</div>
 						`,
 						autoDefine:true,
 						onadded(){
@@ -534,7 +559,9 @@ const view = {
 						downloadLink:item[1],
 						innerHTML:`
 							<div>#${i+1}. ${item[0]}</div>
-							<div class=downloadbutton id=downloadbutton>Download</div>
+							<div class=downloadbutton id=downloadbutton>
+								<img src="./more/media/downloadicon.png">Download
+							</div>
 						`,
 						autoDefine:true,
 						onadded(){

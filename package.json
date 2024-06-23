@@ -5,6 +5,7 @@
     "express": "^4.18.2",
     "express-formidable": "^1.2.0",
     "firebase-admin": "^12.0.0",
+    "formidable": "^3.5.1",
     "md5": "^2.3.0",
     "owl.carousel": "^2.3.4"
   },
@@ -12,7 +13,6 @@
   "version": "1.0.0",
   "description": "Web topup app",
   "main": "server/app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "node ./server/app.js"
   },
