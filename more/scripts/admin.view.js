@@ -21,240 +21,8 @@ const view = {
 			`
 		})
 	},
-	home(param){
-		param = [
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			{
-				thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				title:'Remember When',
-				smallTitle:'2024, 12 eps',
-				infoDrama:{
-					Judul:'Remember When',
-					Sutradara:'Kin Shin Tae',
-					Rating:'4/6',
-					Asal:'Korsel',
-					Publisher:'Netflix',
-					'Jumlah Episode':'14 Episode'
-				},
-				bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-				sinopsis:'Ada seorang laki laki',
-				downloadLinks:{
-					batchs:[['Eps 1-end','fakelink']],
-					episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-				},
-				categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			},
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// },
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// },
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// },
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// },
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// },
-			// {
-			// 	thumbnail:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	title:'Remember When',
-			// 	smallTitle:'2024, 12 eps',
-			// 	infoDrama:{
-			// 		Judul:'Remember When',
-			// 		Sutradara:'Kin Shin Tae',
-			// 		Rating:'4/6',
-			// 		Asal:'Korsel',
-			// 		Publisher:'Netflix',
-			// 		'Jumlah Episode':'14 Episode'
-			// 	},
-			// 	bannerImg:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	imgCardSrc:'https://akcdn.detik.net.id/visual/2021/06/18/nevertheless-2_43.jpeg?w=720&q=90',
-			// 	sinopsis:'Ada seorang laki laki',
-			// 	downloadLinks:{
-			// 		batchs:[['Eps 1-end','fakelink']],
-			// 		episodes:[['Eps 1: the batle of singkuang','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink'],['Eps 1','fakelink']]
-			// 	},
-			// 	categories:['Romance','Trending','Latest','Action','Kin Ji Seok']
-			// }
-		];
+	home(){
+		const param = app.get_normalized_home_data();
 		return makeElement('div',{
 			className:'showcase',
 			onadded(){
@@ -264,7 +32,6 @@ const view = {
 					app.content.isMinHeightAuto = true;
 				}else app.content.style.minHeight = '100%';
 				app.removeInitLoading();
-				console.log('called');
 			},
 			getDisplayLen(){
 				const wideList = {
@@ -317,7 +84,7 @@ const view = {
 									style:`max-width:${calculatedWidth}px;min-width:${calculatedWidth}px;`,
 									innerHTML:`
 										<div style=width:100%;height:250px;overflow:hidden;opacity:.8;>
-		                  <img src="${param[index].thumbnail}" class=fitimage>
+		                  <img src="${param[index].logo_series}" class=fitimage>
 		                </div>
 		                <div class=background></div>
 		                <div style="
@@ -331,8 +98,8 @@ const view = {
 		                  justify-content: flex-end;
 		                ">
 		                  <div style=padding:10px;color:white;>
-		                    <div class=bigone>${param[index].title}</div>
-		                    <div class=smallone>${param[index].smallTitle}</div>
+		                    <div class=bigone>${param[index].nama}</div>
+		                    <div class=smallone>${param[index].small_title}</div>
 		                  </div>
 		                </div>
 									`,
@@ -348,22 +115,24 @@ const view = {
 			}
 		})
 	},
-	categories(param){
-		param = ['Beranda','Romance'];
+	categories(){
 		return makeElement('nav',{
 			onadded(){
 				this.pushContent();
 			},
 			pushContent(){
-				param.forEach((item)=>{
-					this.addChild(makeElement('div',{
-						innerHTML:item,
-						item,
-						onadded(){
-							console.log(this.item);
-						}
-					}))
-				})
+				if(app.home_data.valid){
+					for(let i in app.home_data.data.kategori){
+						const item = app.home_data.data.kategori[i];
+						this.addChild(makeElement('div',{
+							innerHTML:i,
+							item,
+							onadded(){
+
+							}
+						}))
+					}
+				}
 			}
 		})
 	},
@@ -393,14 +162,14 @@ const view = {
 	              	</div>
               	</div>
                 <div style=width:100%;height:300px;border-radius:8px;overflow:hidden;>
-                  <img src="${param.bannerImg}" class=fitimage>
+                  <img src="${param.banner_series}" class=fitimage>
                 </div>
                 <div class="titledesc">
                   <div class="imagecard card">
-                    <img src="${param.imgCardSrc}" class=fitimage>
+                    <img src="${param.logo_series}" class=fitimage>
                   </div>
                   <div style=width:100%; class="title">
-                    <div class=bigtitle>${param.title}</div>
+                    <div class=bigtitle>${param.nama}</div>
                     <div class=category id=categories></div>
                   </div>
                 </div>
@@ -518,19 +287,19 @@ const view = {
 			},
 			generateInfo(){
 				let count = 0;
-				for(let i in param.infoDrama){
+				for(let i in param.keterangan){
 					count += 1;
 					this.infodrama.addChild(makeElement('div',{
-						className:'item',style:`${count === objlen(param.infoDrama)?'border-bottom:none;margin-bottom:0;padding-bottom:0;':''}`,
+						className:'item',style:`${count === objlen(param.keterangan)?'border-bottom:none;margin-bottom:0;padding-bottom:0;':''}`,
 						innerHTML:`
 							<div>${i}:</div>
-							<div>${param.infoDrama[i]}</div>
+							<div>${param.keterangan[i]}</div>
 						`
 					}))
 				}
 			},
 			generateCategories(){
-				param.categories.forEach((item)=>{
+				param.kategori.forEach((item)=>{
 					this.categories.addChild(makeElement('div',{
 						innerHTML:item
 					}))
@@ -539,51 +308,65 @@ const view = {
 			generateDownloadLinks(){
 				this.downloadloading.remove();
 				// working batch
-				param.downloadLinks.batchs.forEach((item,i)=>{
+				if(!param.link_batch){
 					this.batch.addChild(makeElement('div',{
 						className:'downloaditem',
-						downloadLink:item[1],
-						style:`${i===param.downloadLinks.batchs.length - 1 ? 'border-bottom:none;' : ''}`,
-						innerHTML:`
-							<div>#${i+1}. ${item[0]}</div>
-							<div class=downloadbutton id=downloadbutton>
-								<img src="./more/media/downloadicon.png">Download
-							</div>
-						`,
-						autoDefine:true,
-						onadded(){
-							this.downloadbutton.onclick = ()=>{
-								this.openDownload();
-							}
-						},
-						openDownload(){
-							console.log(this.downloadLink);
-						}
+						innerHTML:'Link Download Belum Tersedia!'
 					}))
-				})
+				}else{
+					param.link_batch.forEach((item,i)=>{
+						this.batch.addChild(makeElement('div',{
+							className:'downloaditem',
+							downloadLink:item.shortenedUrl,
+							style:`${i===param.link_batch.length - 1 ? 'border-bottom:none;' : ''}`,
+							innerHTML:`
+								<div>#${i+1}. ${item.label}</div>
+								<div class=downloadbutton id=downloadbutton>
+									<img src="./more/media/downloadicon.png">Download
+								</div>
+							`,
+							autoDefine:true,
+							onadded(){
+								this.downloadbutton.onclick = ()=>{
+									this.openDownload();
+								}
+							},
+							openDownload(){
+								console.log(this.downloadLink);
+							}
+						}))
+					})
+				}
 				// working on per episode
-				param.downloadLinks.episodes.forEach((item,i)=>{
+				if(!param.link_episode){
 					this.episode.addChild(makeElement('div',{
 						className:'downloaditem',
-						style:`${i===param.downloadLinks.episodes.length - 1 ? 'border-bottom:none;' : ''}`,
-						downloadLink:item[1],
-						innerHTML:`
-							<div>#${i+1}. ${item[0]}</div>
-							<div class=downloadbutton id=downloadbutton>
-								<img src="./more/media/downloadicon.png">Download
-							</div>
-						`,
-						autoDefine:true,
-						onadded(){
-							this.downloadbutton.onclick = ()=>{
-								this.openDownload();
-							}
-						},
-						openDownload(){
-							console.log(this.downloadLink);
-						}
+						innerHTML:'Link Download Belum Tersedia!'
 					}))
-				})
+				}else{
+					param.link_episode.forEach((item,i)=>{
+						this.episode.addChild(makeElement('div',{
+							className:'downloaditem',
+							style:`${i===param.link_episode.length - 1 ? 'border-bottom:none;' : ''}`,
+							downloadLink:item.shortenedUrl,
+							innerHTML:`
+								<div>#${i+1}. ${item.label}</div>
+								<div class=downloadbutton id=downloadbutton>
+									<img src="./more/media/downloadicon.png">Download
+								</div>
+							`,
+							autoDefine:true,
+							onadded(){
+								this.downloadbutton.onclick = ()=>{
+									this.openDownload();
+								}
+							},
+							openDownload(){
+								console.log(this.downloadLink);
+							}
+						}))
+					})
+				}
 			}
 		})
 	},
@@ -613,6 +396,12 @@ const view = {
               			<div>Nama Series</div>
               			<div style=display:flex;>
               				<input id=nama  placeholder="Masukan Nama Series">
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Small Title</div>
+              			<div style=display:flex;>
+              				<input id=small_title  placeholder="Masukan Small Title Series">
               			</div>
               		</div>
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
@@ -745,9 +534,11 @@ const view = {
 				keterangan:null,
 				link_episode:[],
 				link_batch:[],
-				kategori:null
+				kategori:null,
+				small_title:null
 			},
 			data_types:{
+				small_title:'string',
 				nama:'string',
 				sinopsis:'string',
 				banner_series:'file',
@@ -812,6 +603,12 @@ const view = {
 					let link = this[`link_${state}`].value;
 					const index = this.series_data[`link_${state}`].length;
 					const encode = this[`encode_${state}`].value;
+
+					// handle 0 value
+					if(!label.length || !link.length || !encode.length)
+						return alert('Please fill out the data corectly!!!');
+
+
 					if(encode==='1')
 						link = this.encodeClicksFlyLink(link);
 					this.series_data[`link_${state}`].push({link,label,index});
@@ -822,7 +619,11 @@ const view = {
 			},
 			encodeClicksFlyLink(link){
 				const splited = link.split('&');
-				return atob(splited[1].split('=')[1]);
+				try{
+					return atob(splited[1].split('=')[1]);
+				}catch(e){
+					alert('Fail to encode the link, make sure the link is corectly!');
+				}
 			},
 			handleImagesFile(){
 				this.banner_series.onchange = ()=>{
@@ -905,7 +706,8 @@ const view = {
 					url:app.getReqUrl('newseries'),
 					data:param,
 					onload(){
-						console.log(this.getJSONResponse());
+						alert(this.getJSONResponse().message);
+						app.openNewSeries();
 					}
 				})
 			}

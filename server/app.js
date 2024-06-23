@@ -7,7 +7,7 @@ const md5 = require('md5');
 const adminfb = require("firebase-admin");
 const { getDatabase } = require('firebase-admin/database');
 const { getStorage, getDownloadURL, getFileBucket } = require('firebase-admin/storage');
-const serviceAccount = require("./warungkuproject-45a28-firebase-adminsdk-ljd7p-5ec6fd25c2.json");
+const serviceAccount = require("./warungkuproject-45a28-firebase-adminsdk-ljd7p-de2b596b76.json");
 adminfb.initializeApp({
   credential: adminfb.credential.cert(serviceAccount),
   databaseURL: "https://warungkuproject-45a28-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -28,8 +28,10 @@ app.use(cors());
 // client routes
 app.get('/home',async (req,res)=>{
 	try{
-		const data = await getFrontData();
-		res.json(data);
+		let data = await getFrontData();
+		// section to proces the data before push it back to the client
+
+		res.json({valid:true,data,message:'Successfuly get the data!'});
 	}catch(e){
 		res.json({valid:false,message:"Fail to process fron data!"});
 	}
@@ -48,8 +50,9 @@ app.post('/newseries',async (req,res)=>{
 
 // define the functions
 const getFrontData = ()=>{
-	return new Promise((resolve,reject)=>{
-
+	return new Promise(async (resolve,reject)=>{
+		const data = (await db.ref('/').get()).val();
+		resolve(data);
 	})
 }
 const handleNewSeries = (req,res)=>{

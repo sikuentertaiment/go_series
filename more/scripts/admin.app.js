@@ -9,6 +9,7 @@ const app = {
 	finderInput:find('#finderInput'),
 	content:find('content'),
 	leftheader:find('#leftheader'),
+	newSeriesButton:find('#newseries'),
 	header:find('header'),
 	getReqUrl(param){
 		return `${this.baseUrl}/${param}`;
@@ -18,10 +19,13 @@ const app = {
 		this.provideScurities();
 		this.navigationInitiator(window);
 		this.headerInit();
+		await this.getHomeData();
 		this.initCategory();
 		if(location.hash === '#Home'){
 			this.openHome();
 		}else location.hash = '#Home';
+
+		this.buttonInits();
 	},
 	openInitLoading(){
 		this.initLoading = this.body.addChild(view.initLoading());
@@ -91,6 +95,23 @@ const app = {
 	initCategory(){
 		this.leftheader.addChild(view.categories());
 	},
+	getHomeData(){
+		return new Promise(async (resolve,reject)=>{
+			const data = await new Promise((resolve,reject)=>{
+				cOn.get({
+					url:this.getReqUrl('home'),
+					onload(){
+						resolve(this.getJSONResponse());
+					}
+				})
+			})
+			if(data.valid){
+				this.home_data = data;
+				return resolve(true);
+			}
+			alert('Something went wrong getting the data!');
+		})
+	},
 	headerInit(){
 		console.log(this.app);
 		this.app.onscroll = (e)=>{
@@ -99,6 +120,24 @@ const app = {
 			}
 			this.header.find('nav').show('flex');
 		}
+	},
+	buttonInits(){
+		this.newSeriesButton.onclick = ()=>{
+			location.hash = 'New';
+		}
+		this.finderInput.onchange = ()=>{
+			this.handleFinderChangedState();
+		}
+	},
+	handleFinderChangedState(){
+	},
+	get_normalized_home_data(){
+		const data = [];
+		for(let i in this.home_data.data.series){
+			data.push(this.home_data.data.series[i]);
+		}
+		console.log(data);
+		return data;
 	}
 }
 
