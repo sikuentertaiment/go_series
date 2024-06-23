@@ -7,7 +7,7 @@ const md5 = require('md5');
 const adminfb = require("firebase-admin");
 const { getDatabase } = require('firebase-admin/database');
 const { getStorage, getDownloadURL, getFileBucket } = require('firebase-admin/storage');
-const serviceAccount = require("./warungkuproject-45a28-firebase-adminsdk-ljd7p-de2b596b76.json");
+const serviceAccount = require("./warungkuproject-45a28-firebase-adminsdk-ljd7p-f67d0f44c8.json");
 adminfb.initializeApp({
   credential: adminfb.credential.cert(serviceAccount),
   databaseURL: "https://warungkuproject-45a28-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -80,12 +80,16 @@ const tryBlock = (fn,req,res)=>{
 
 const handleFile = (fields,files)=>{
 	return new Promise(async (resolve,reject)=>{
+		let index = 0;
 		for(let i in files){
 			const file = files[i];
 			const destination = `${new Date().getTime()}.${file.type.split('/')[1]}`;
 			await st.upload(file.path,{destination,resumable:true})
 			fields[i] = await getDownloadURL(st.file(destination));
+			index += 1;
 		}
+		if(!index)
+			fields = handleEkternalLinks(fields);
 		resolve(fields);
 	})
 }
@@ -189,6 +193,21 @@ const getclicksflylink = (dest,alias)=>{
 
 const getAlias = ()=>{
 	return `gsref${new Date().getTime()}`;
+}
+
+const handleEkternalLinks = (fields)=>{
+
+	let banner_series_link = fields.banner_series_link;
+	let logo_series_link = fields.logo_series_link;
+
+	fields.banner_series = banner_series_link;
+	fields.logo_series = logo_series_link;
+
+	// deleting the eksternal_links
+	delete fields.banner_series_link;
+	delete fields.logo_series_link;
+
+	return fields;
 }
 
 

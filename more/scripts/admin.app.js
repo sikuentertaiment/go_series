@@ -62,10 +62,11 @@ const app = {
 	topLayerSetBackground(){
 		this.topLayer.style.background = 'rgb(245 245 249)';
 	},
-	openDetails(param){
+	openDetails(query,param){
 		this.content.replaceChild(view.details(param));
 	},
-	openHome(){
+	openHome(query){
+		console.log(query);
 		this.content.replaceChild(view.home());
 	},
 	openNewSeries(){
@@ -89,7 +90,22 @@ const app = {
 				return history.back();
 			// this.hideAndShow();
 			// this.topLayerSetBackground();
-			this[this.hashNavMeta[location.hash]](this.hashParam);
+
+			// implementing paramater
+			let hash = location.hash;
+			const query = {};
+			if(location.hash.indexOf('?')!==-1){
+				const splitedhash = location.hash.split('?');
+				const queries = splitedhash[1].split('&');
+				queries.forEach((q)=>{
+					const v = q.split('=');
+					if(v.length===2)
+						query[v[0]] = v[1];
+				})
+				hash = splitedhash[0];
+			}
+
+			this[this.hashNavMeta[hash]](query,this.hashParam);
 		}
 	},
 	initCategory(){

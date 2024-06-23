@@ -97,7 +97,7 @@ const view = {
 		                  flex-direction: column;
 		                  justify-content: flex-end;
 		                ">
-		                  <div style=padding:10px;color:white;>
+		                  <div style=padding:10px;color:white;background:#00000087;>
 		                    <div class=bigone>${param[index].nama}</div>
 		                    <div class=smallone>${param[index].small_title}</div>
 		                  </div>
@@ -161,7 +161,7 @@ const view = {
 	              		Statistik Series
 	              	</div>
               	</div>
-                <div style=width:100%;height:300px;border-radius:8px;overflow:hidden;>
+                <div style=width:100%;height:300px;border-radius:8px;overflow:hidden;background:lightgray;>
                   <img src="${param.banner_series}" class=fitimage>
                 </div>
                 <div class="titledesc">
@@ -332,7 +332,7 @@ const view = {
 								}
 							},
 							openDownload(){
-								console.log(this.downloadLink);
+								window.open(this.downloadLink,'_blank');
 							}
 						}))
 					})
@@ -425,19 +425,31 @@ const view = {
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Icon Series</div>
               			<div class='child imagepreview' id=image_preview_icon>
-              				<img src=./more/media/nopreview.png>
+              				<img src=./more/media/nopreview.png class=fitimage>
               			</div>
               			<div style=display:flex;>
               				<input type=file accept=image/png id=logo_series>
+              			</div>
+              			<div>
+              				<div style=margin-bottom:5px;>Eksternal Link</div>
+              				<div style=display:flex;>
+              					<input placeholder="Masukan eksternal link (optional)" id=logo_series_link>
+              				</div>
               			</div>
               		</div>
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Banner Series</div>
               			<div class='child imagepreview' id=image_preview_banner>
-              				<img src=./more/media/nopreview.png>
+              				<img src=./more/media/nopreview.png class=fitimage>
               			</div>
               			<div style=display:flex;>
               				<input type=file accept=image/png id=banner_series>
+              			</div>
+              			<div>
+              				<div style=margin-bottom:5px;>Eksternal Link</div>
+              				<div style=display:flex;>
+              					<input placeholder="Masukan eksternal link (optional)" id=banner_series_link>
+              				</div>
               			</div>
               		</div>
               		<div style=display:flex;flex-direction:column;gap:10px;margin-bottom:10px;>
@@ -535,7 +547,9 @@ const view = {
 				link_episode:[],
 				link_batch:[],
 				kategori:null,
-				small_title:null
+				small_title:null,
+				logo_series_link:null,
+				banner_series_link:null
 			},
 			data_types:{
 				small_title:'string',
@@ -546,7 +560,9 @@ const view = {
 				keterangan:'JSON',
 				kategori:'JSON',
 				link_batch:'JSON',
-				link_episode:'JSON'
+				link_episode:'JSON',
+				banner_series_link:'string',
+				logo_series_link:'string'
 			},
 			newLinkInit(state){
 				const remove_link_ = (index)=>{
@@ -632,6 +648,12 @@ const view = {
 				this.logo_series.onchange = ()=>{
 					display_image(this.logo_series.files[0],this.image_preview_icon);
 				}
+				this.banner_series_link.onchange = ()=>{
+					this.image_preview_banner.find('img').src = this.banner_series_link.value;
+				}
+				this.logo_series_link.onchange = ()=>{
+					this.image_preview_icon.find('img').src = this.logo_series_link.value;
+				}
 				const display_image = (file,el)=>{
 					const fs = new FileReader();
 					fs.readAsDataURL(file);
@@ -683,6 +705,10 @@ const view = {
 			validate(){
 				let valid = true;
 				for(let i in this.series_data){
+					if(i==='banner_series_link' || i==='logo_series_link')
+						continue;
+					if(this.data_types[i] === 'file' && this.series_data[`${i}_link`].length > 0)
+						continue;
 					if(!this.series_data[i]){
 						valid = false;
 						break;
