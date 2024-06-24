@@ -83,7 +83,7 @@ const view = {
 									className:'parent',
 									style:`max-width:${calculatedWidth}px;min-width:${calculatedWidth}px;`,
 									innerHTML:`
-										<div style=width:100%;height:250px;overflow:hidden;opacity:.8;>
+										<div style=width:100%;height:250px;overflow:hidden;>
 		                  <img src="${param[index].logo_series}" class=fitimage>
 		                </div>
 		                <div class=background></div>
