@@ -7,7 +7,7 @@ const md5 = require('md5');
 const adminfb = require("firebase-admin");
 const { getDatabase } = require('firebase-admin/database');
 const { getStorage, getDownloadURL, getFileBucket } = require('firebase-admin/storage');
-const serviceAccount = require("../credentials/warungkuproject-45a28-firebase-adminsdk-ljd7p-0da92e61e4.json");
+const serviceAccount = require("../credentials/warungkuproject-45a28-firebase-adminsdk-ljd7p-fcc0c51c37.json");
 adminfb.initializeApp({
   credential: adminfb.credential.cert(serviceAccount),
   databaseURL: "https://warungkuproject-45a28-default-rtdb.asia-southeast1.firebasedatabase.app",

@@ -21,8 +21,8 @@ const view = {
 			`
 		})
 	},
-	home(){
-		const param = app.get_normalized_home_data();
+	home(a){
+		const param = app.get_normalized_home_data(a);
 		return makeElement('div',{
 			className:'showcase',
 			onadded(){
@@ -112,23 +112,56 @@ const view = {
 						}
 					}))
 				}
+				if(!index)
+					this.addChild(makeElement('div',{
+						className:'container',
+						innerHTML:`
+							<div class=seperator></div>
+							<div style=width:100%;>
+								<div class=content id=content>
+									<div style="
+										width:100%;
+										height:100%;
+										display:flex;
+										justify-content:center;
+									">Data belum tersedia!</div>
+								</div>
+							</div>
+						`
+					}))
 			}
 		})
 	},
 	categories(){
-		return makeElement('nav',{
+		return makeElement('div',{
+			id:'categories_section',
+			style:'display:flex;gap:12px;align-items:center;',
+			className:'width50',
+			innerHTML:`
+				<nav class=child id=nav></nav>
+				<div style=width:32px;height:32px; class=moremenu>
+					<img src=./more/media/moreicon.png class=fitimage>
+				</div>
+			`,
+			autoDefine:true,
 			onadded(){
 				this.pushContent();
 			},
 			pushContent(){
 				if(app.home_data.valid){
-					for(let i in app.home_data.data.kategori){
+					const cc = ['Semua'].concat(Object.keys(app.home_data.data.kategori))
+					for(let i of cc){
 						const item = app.home_data.data.kategori[i];
-						this.addChild(makeElement('div',{
+						app.categoriEls[i] = this.nav.addChild(makeElement('div',{
 							innerHTML:i,
 							item,
+							onclick(){
+								app.setActiveCategory(this);
+								app.changeState(`Home?filter=1&key=${i}`,this.item);
+							},
 							onadded(){
-
+								if(i==='Semua')
+									app.setActiveCategory(this);
 							}
 						}))
 					}
@@ -301,7 +334,12 @@ const view = {
 			generateCategories(){
 				param.kategori.forEach((item)=>{
 					this.categories.addChild(makeElement('div',{
-						innerHTML:item
+						innerHTML:item,
+						id:item,
+						onclick(){
+							app.setActiveCategory(null,this.id);
+							app.changeState(`Home?filter=1&key=${this.id}`);
+						}
 					}))
 				})
 			},
@@ -362,7 +400,7 @@ const view = {
 								}
 							},
 							openDownload(){
-								console.log(this.downloadLink);
+								window.open(this.downloadLink,'_blank');
 							}
 						}))
 					})

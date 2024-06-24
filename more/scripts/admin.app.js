@@ -66,8 +66,7 @@ const app = {
 		this.content.replaceChild(view.details(param));
 	},
 	openHome(query){
-		console.log(query);
-		this.content.replaceChild(view.home());
+		this.content.replaceChild(view.home(query));
 	},
 	openNewSeries(){
 		this.content.replaceChild(view.new());
@@ -82,7 +81,8 @@ const app = {
 	},
 	changeState(hash,data=null){
 		location.hash = hash;
-		this.hashParam = data;
+		if(data)
+			this.hashParam = data;
 	},
 	navigationInitiator(global){
 		window.onhashchange = ()=>{
@@ -99,8 +99,10 @@ const app = {
 				const queries = splitedhash[1].split('&');
 				queries.forEach((q)=>{
 					const v = q.split('=');
-					if(v.length===2)
+					if(v.length===2){
+						v[1] = this.queryValueTypeHandler(v[1]);
 						query[v[0]] = v[1];
+					}
 				})
 				hash = splitedhash[0];
 			}
@@ -123,18 +125,20 @@ const app = {
 			})
 			if(data.valid){
 				this.home_data = data;
+
+				// handle all for the category
+				//this.home_data.data.kategori.Semua = [];
 				return resolve(true);
 			}
 			alert('Something went wrong getting the data!');
 		})
 	},
 	headerInit(){
-		console.log(this.app);
 		this.app.onscroll = (e)=>{
 			if(this.header.offsetHeight < e.target.scrollTop){
-				return	this.header.find('nav').hide();
+				return	this.header.find('#categories_section').hide();
 			}
-			this.header.find('nav').show('flex');
+			this.header.find('#categories_section').show('flex');
 		}
 	},
 	buttonInits(){
@@ -146,15 +150,78 @@ const app = {
 		}
 	},
 	handleFinderChangedState(){
+		const query = this.finderInput.value;
+		this.changeState(`Home?search=1&key=${query}`);
 	},
-	get_normalized_home_data(){
+	get_normalized_home_data(a={filter:0,key:''}){
 		const data = [];
+
+		if(a.search && a.key){
+			this.setActiveCategory(null,'Semua');
+			for(let i in this.home_data.data.series){
+				const item = this.home_data.data.series[i];
+				let is_continue = false;
+				for(let i of ['nama','sinopsis','small_title']){
+					if(item[i].toLowerCase().indexOf(decodeURIComponent(a.key).toLowerCase())!==-1){
+						data.push(item);
+						is_continue = true;
+						break;
+					}	
+				}
+				if(is_continue)
+					continue;
+
+				if(item.kategori.map((x)=>x.toLowerCase()).includes(a.key.toLowerCase())){
+					data.push(item);
+					is_continue = true;
+				}
+				if(is_continue)
+					continue;
+
+				
+
+			}
+			return data;
+		}
+		
+		if(a.filter && a.key !== 'Semua'){
+
+			this.setActiveCategory(null,a.key);
+
+
+			this.home_data.data.kategori[a.key].forEach((id)=>{
+				data.push(this.home_data.data.series[id]);
+			})
+			return data;
+		}
+		this.setActiveCategory(null,'Semua');
 		for(let i in this.home_data.data.series){
 			data.push(this.home_data.data.series[i]);
 		}
-		console.log(data);
 		return data;
-	}
+	},
+	queryValueTypeHandler(param){
+		// handling type number
+		if(!isNaN(param)){
+			return Number(param);
+		}
+		// type boolean
+		if(param==='false'){
+			return 0;
+		}else if(param==='true')
+			return 1;
+
+		return param;
+	},
+	setActiveCategory(el=null,label=''){
+		if(!el)
+			el = this.categoriEls[label];
+		if(this.activeCategory)
+			this.activeCategory.classList.remove('activecategory');
+		el.classList.add('activecategory');
+		this.activeCategory = el;
+	},
+	categoriEls:{}
 }
 
 app.init();

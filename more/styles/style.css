@@ -99,7 +99,7 @@ header{
 nav{
   display: flex;
   gap: 10px;
-  width: 50%;
+  width: 100%;
   overflow: auto;
   border-radius: 5px;
 }
@@ -519,12 +519,27 @@ footer{
   background: whitesmoke;
 }
 
+.activecategory{
+  background:#00b5ff;
+  color:white;
+  position: sticky;
+  left: 0;
+  right: 0;
+}
+
+.moremenu{
+  cursor:pointer;
+  background:white;
+  padding:2px 5px;
+  border-radius:5px;
+}
+.moremenu:hover{
+  background: gainsboro;
+}
+
 @media screen and (max-width:1258px){
   header{
     flex-direction: column;
-  }
-  nav{
-    width:100%;
   }
   .searchparent{
     width:100%;
