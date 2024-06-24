@@ -185,11 +185,11 @@ const view = {
                 border: 1px solid gainsboro;
               " class=card>
               	<div style=margin-bottom:20px;display:flex;gap:5px;>
-              		<div class=goldbutton style=gap:5px;width:100%;>
+              		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Series
 	              	</div>
-	              	<div class=goldbutton style=gap:5px;width:100%;>
+	              	<div class=goldbutton style=gap:5px;width:100%; id=statistik_series>
 	              		<img src=./more/media/statsicon.png width=18>
 	              		Statistik Series
 	              	</div>
@@ -295,9 +295,20 @@ const view = {
 				this.generateInfo();
 				this.initDownloadMenuNav();
 				this.generateDownloadLinks();
+				this.handleMoreAdminButton();
 				if(this.offsetHeight >= app.content.offsetHeight)
 					app.content.style.minHeight = 'auto';
 				app.removeInitLoading();
+			},
+			handleMoreAdminButton(){
+				if(this.edit_series && this.statistik_series){
+					this.edit_series.onclick = ()=>{
+						app.changeState('Edit');
+					}
+					this.statistik_series.onclick = ()=>{
+
+					}
+				}
 			},
 			initDownloadMenuNav(){
 				const divs = this.downloadmenu.findall('div');
@@ -487,6 +498,375 @@ const view = {
               				<div style=margin-bottom:5px;>Eksternal Link</div>
               				<div style=display:flex;>
               					<input placeholder="Masukan eksternal link (optional)" id=banner_series_link>
+              				</div>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:10px;margin-bottom:10px;>
+              			<div>Link Batch</div>
+              			<div class="linkbox" id=link_box_batch>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Link</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=link_batch>
+              					</div>
+              				</div>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Label</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=label_batch>
+              					</div>
+              				</div>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Encode</div>
+              					<div style=display:flex;width:100%;>
+              						<select class=child id=encode_batch>
+              							<option value=1 selected>YES</option>
+              							<option value=0>NO</option>
+              						</select>
+              					</div>
+              				</div>
+              				<div class=goldbutton id=new_link_batch>
+				                <img src=./more/media/addicon.png style=width:24px;height:24px;>
+				                Link Baru
+				              </div>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:10px;margin-bottom:10px;>
+              			<div>Link Episode</div>
+              			<div class='linkbox' id=link_box_episode>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Link</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=link_episode>
+              					</div>
+              				</div>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Label</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=label_episode>
+              					</div>
+              				</div>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Encode</div>
+              					<div style=display:flex;width:100%;>
+              						<select class=child id=encode_episode>
+              							<option value=1 selected>YES</option>
+              							<option value=0>NO</option>
+              						</select>
+              					</div>
+              				</div>
+              				<div class=goldbutton id=new_link_episode>
+				                <img src=./more/media/addicon.png style=width:24px;height:24px;>
+				                Link Baru
+				              </div>
+              			</div>
+              		</div>
+              	</div>
+              </div>
+            </div>
+          </div>
+        </div>
+			`,
+			autoDefine:true,
+			onadded(){
+				if(this.offsetHeight >= app.content.offsetHeight)
+					app.content.style.minHeight = 'auto';
+				this.newLinkInit('episode');
+				this.newLinkInit('batch');
+				this.handleImagesFile();
+
+				this.savebutton.onclick = ()=>{
+					this.collapseData();
+				}
+			},
+			series_data:{
+				nama:null,
+				sinopsis:null,
+				banner_series:null,
+				logo_series:null,
+				keterangan:null,
+				link_episode:[],
+				link_batch:[],
+				kategori:null,
+				small_title:null,
+				logo_series_link:null,
+				banner_series_link:null
+			},
+			data_types:{
+				small_title:'string',
+				nama:'string',
+				sinopsis:'string',
+				banner_series:'file',
+				logo_series:'file',
+				keterangan:'JSON',
+				kategori:'JSON',
+				link_batch:'JSON',
+				link_episode:'JSON',
+				banner_series_link:'string',
+				logo_series_link:'string'
+			},
+			newLinkInit(state){
+				const remove_link_ = (index)=>{
+					const new_links = [];
+					let removed = false;
+					this.series_data[`link_${state}`].forEach((link,i)=>{
+						if(i==index){
+							removed = true;
+							return;
+						}
+						if(removed){
+							link.index -= 1;
+						}
+						new_links.push(link);
+					})
+					this.series_data[`link_${state}`] = new_links;
+					this[`link_box_${state}`].clear();
+					display_link_(new_links);
+				}
+				const display_link_ = (param)=>{
+					param.forEach((item)=>{
+						const index = item.index;
+						const label = item.label;
+						const link = item.link;
+						this[`link_box_${state}`].addChild(makeElement('div',{
+							style:`padding:10px;background:white;display:flex;
+								gap:8px;
+							`,
+							innerHTML:`
+								<div style=display:flex;align-items:center;justify-content:center;min-width:32px;>
+									${index+1}.
+								</div>
+								<div style=width:100%;display:flex;justify-content:center;flex-direction:column;overflow:hidden;>
+									<div class="bold bigone">${label}</div>
+									<div class=smallone>
+										<a href="${link}" target=_blank style=color:gray;font-weight:bold;white-space:nowrap;>${link.slice(0,50)}...</a>
+									</div>
+								</div>
+								<div class=goldbutton class="child" id=delete_link>
+									<img src=./more/media/deleteicon.png width=24>
+								</div>
+							`,
+							autoDefine:true,
+							onadded(){
+								this.delete_link.onclick = ()=>{
+									remove_link_(index);
+								}
+							}
+						}))
+					})
+				}
+				this[`new_link_${state}`].onclick = ()=>{
+					const label = this[`label_${state}`].value;
+					let link = this[`link_${state}`].value;
+					const index = this.series_data[`link_${state}`].length;
+					const encode = this[`encode_${state}`].value;
+
+					// handle 0 value
+					if(!label.length || !link.length || !encode.length)
+						return alert('Please fill out the data corectly!!!');
+
+
+					if(encode==='1')
+						link = this.encodeClicksFlyLink(link);
+					this.series_data[`link_${state}`].push({link,label,index});
+					display_link_([{link,label,index}]);
+					this[`link_${state}`].value = '';
+					this[`label_${state}`].value = '';
+				}
+			},
+			encodeClicksFlyLink(link){
+				const splited = link.split('&');
+				try{
+					return atob(splited[1].split('=')[1]);
+				}catch(e){
+					alert('Fail to encode the link, make sure the link is corectly!');
+				}
+			},
+			handleImagesFile(){
+				this.banner_series.onchange = ()=>{
+					display_image(this.banner_series.files[0],this.image_preview_banner);
+				}
+				this.logo_series.onchange = ()=>{
+					display_image(this.logo_series.files[0],this.image_preview_icon);
+				}
+				this.banner_series_link.onchange = ()=>{
+					this.image_preview_banner.find('img').src = this.banner_series_link.value;
+				}
+				this.logo_series_link.onchange = ()=>{
+					this.image_preview_icon.find('img').src = this.logo_series_link.value;
+				}
+				const display_image = (file,el)=>{
+					const fs = new FileReader();
+					fs.readAsDataURL(file);
+					fs.onload = ()=>{
+						el.replaceChild(makeElement('img',{
+							src:fs.result,
+							style:'object-fit:cover;width:100%;height:100%;'
+						}))
+					}
+				}
+			},
+			collapseData(){
+				for(let i in this.data_types){
+					const type = this.data_types[i];
+					if(type==='string'){
+						if(this[i].value.length > 0)
+							this.series_data[i] = this[i].value;
+					}else if(type==='file'){
+						if(this[i].files.length > 0)
+							this.series_data[i] = this[i].files[0];
+					}else{
+						if(i==='keterangan'){
+							if(this[i].value.length > 0)
+								this.series_data[i] = this.getJSONParsed(this[i].value);
+						}else if(i==='kategori'){
+							if(this[i].value.length > 0)
+								this.series_data[i] = this.getKategoriParsed(this[i].value);
+						}
+					}
+				}
+				if(!this.validate())
+					return alert('Please fill the data corectly!!!');
+				const data_form = this.get_form_data();
+				this.upload_(data_form);
+			},
+			getJSONParsed(param){
+				const obj = {};
+				const lines = param.split('\n');
+				lines.forEach((eq)=>{
+					const eqs = eq.split('=');
+					if(eqs.length > 1)
+						obj[eqs[0]] = eqs[1];
+				})
+				return obj;
+			},
+			getKategoriParsed(param){
+				return param.split(',');
+			},
+			validate(){
+				let valid = true;
+				for(let i in this.series_data){
+					if(i==='banner_series_link' || i==='logo_series_link')
+						continue;
+					if(this.data_types[i] === 'file' && this.series_data[`${i}_link`].length > 0)
+						continue;
+					if(!this.series_data[i]){
+						valid = false;
+						break;
+					}
+				}
+				return valid;
+			},
+			get_form_data(){
+				const form_ = new FormData();
+				for(let i in this.series_data){
+					let value = this.series_data[i];
+					if(this.data_types[i] === 'JSON')
+						value = JSON.stringify(value);
+					form_.append(i,value);
+				}
+				return form_;
+			},
+			upload_(param){
+				// show the loading indicator
+				cOn.post({
+					url:app.getReqUrl('newseries'),
+					data:param,
+					onload(){
+						alert(this.getJSONResponse().message);
+						app.openNewSeries();
+					}
+				})
+			}
+		})
+	},
+	edit(){
+		return makeElement('div',{
+			className:'detail',
+			innerHTML:`
+				<div class=container>
+          <div class=seperator></div>
+          <div style=width:100%;>
+            <div style='display: flex;' class=width50>
+              <div style="
+                padding: 20px;
+                background: white;
+                border-radius: 8px;
+                width: 100%;
+                border: 1px solid gainsboro;
+              " class=card><div style=margin-bottom:20px;display:flex;gap:5px;>
+              		<div class=goldbutton style=gap:5px;width:100%; id=savebutton>
+	              		<img src=./more/media/saveicon.png width=24>
+	              		Simpan Series
+	              	</div>
+              	</div>
+              	<div class=bold>Edit Series</div>
+              	<div style=margin-top:20px;>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Nama Series</div>
+              			<div style=display:flex;>
+              				<input id=nama  placeholder="Masukan Nama Series" value="${app.hashParam.nama}">
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Small Title</div>
+              			<div style=display:flex;>
+              				<input id=small_title  placeholder="Masukan Small Title Series" value="${app.hashParam.small_title}">
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Sinopsis</div>
+              			<div style=display:flex;>
+              				<textarea class=child id=sinopsis placeholder="Masukan Sinopsis Series!">${app.hashParam.sinopsis}</textarea>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>kategori</div>
+              			<div style=display:flex;>
+              				<textarea class=child id=kategori placeholder="Pisahkan dengan ','">${app.hashParam.kategori.toString()}</textarea>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Keterangan Series</div>
+              			<div style=display:flex;>
+              				<textarea class=child id=keterangan placeholder="Masukan Keterangan Series">${app.kategoriToString()}</textarea>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Icon Series</div>
+              			<div class='child imagepreview' id=image_preview_icon>
+              				<img src="${app.hashParam.logo_series}" class=fitimage>
+              			</div>
+              			<div style=display:flex;>
+              				<input type=file accept=image/png id=logo_series>
+              			</div>
+              			<div>
+              				<div style=margin-bottom:5px;>Eksternal Link</div>
+              				<div style=display:flex;>
+              					<input placeholder="Masukan eksternal link (optional)" id=logo_series_link value="${app.hashParam.logo_series}">
+              				</div>
+              			</div>
+              		</div>
+              		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
+              			<div>Banner Series</div>
+              			<div class='child imagepreview' id=image_preview_banner>
+              				<img src="${app.hashParam.banner_series}" class=fitimage>
+              			</div>
+              			<div style=display:flex;>
+              				<input type=file accept=image/png id=banner_series>
+              			</div>
+              			<div>
+              				<div style=margin-bottom:5px;>Eksternal Link</div>
+              				<div style=display:flex;>
+              					<input placeholder="Masukan eksternal link (optional)" id=banner_series_link value="${app.hashParam.banner_series}">
               				</div>
               			</div>
               		</div>

@@ -71,13 +71,17 @@ const app = {
 	openNewSeries(){
 		this.content.replaceChild(view.new());
 	},
+	openEditSeries(){
+		this.content.replaceChild(view.edit());
+	},
 	initSearchInput(){
 	},
 	hashNavMeta:{
 		'':'openHome',
 		'#Home':'openHome',
 		'#Details':'openDetails',
-		'#New':'openNewSeries'
+		'#New':'openNewSeries',
+		'#Edit':'openEditSeries'
 	},
 	changeState(hash,data=null){
 		location.hash = hash;
@@ -108,6 +112,7 @@ const app = {
 			}
 
 			this[this.hashNavMeta[hash]](query,this.hashParam);
+			this.app.scrollTop = 0;
 		}
 	},
 	initCategory(){
@@ -221,7 +226,17 @@ const app = {
 		el.classList.add('activecategory');
 		this.activeCategory = el;
 	},
-	categoriEls:{}
+	categoriEls:{},
+	kategoriToString(){
+		let string = '';
+		const keys = Object.keys(this.hashParam.keterangan);
+		let index = 0;
+		for(let i of keys){
+			string += `${i}=${this.hashParam.keterangan[i]}${index!==keys.length-1?'\n':''}`;
+			index += 1;
+		}
+		return string;
+	}
 }
 
 app.init();
