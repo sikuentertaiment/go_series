@@ -116,6 +116,8 @@ nav div{
 }
 nav div:hover{
   background:#00b5ff;
+  border: 1px solid #0f96d9;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   color:white;
 }
 
@@ -177,8 +179,9 @@ footer{
 
 .titledesc{
   display: flex;
-  padding: 20px;
+  padding: 32px;
   gap: 20px;
+  padding-bottom:0;
 }
 
 .imagecard{
@@ -287,11 +290,7 @@ footer{
   position: relative;
   cursor: pointer;
   border-radius:5px;
-/*  background: white;*/
-/*  border:1px solid gainsboro;*/
   overflow: hidden;
-/*  background-clip: padding-box;*/
-/*  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);*/
 }
 .item .box:hover{
   border-color: #8973df;
@@ -336,7 +335,8 @@ footer{
   border-radius: 5px;
   cursor: pointer;
   gap: 5px;
-  border: 1px solid gainsboro;
+  border: 1px solid #0f96d9;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   font-size: 16px;
   white-space: nowrap;
 }
@@ -354,11 +354,11 @@ footer{
   font-size:11px;
   color: gray;
 }
+
 .varianselected{
-/*  background: #8973df;*/
-/*  color:white;*/
   border:1px solid #696cff;
 }
+
 .formc{
   display: block;
   width: 100%;
@@ -378,24 +378,27 @@ footer{
   font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
-/*classes*/
 .bold{
   font-weight: bold;
 }
+
 .columnMenuParent{
   display: flex;
   flex-direction: column;
   gap:8px;
 }
+
 .bottomMenu{
   padding:15px;
   cursor: pointer;
   border:1px solid white;
   border-radius:8px;
 }
+
 .bottomMenu:hover{
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 }
+
 .blackHover{
   background:white;
 }
@@ -476,7 +479,7 @@ footer{
 }
 
 .downloadbutton:hover{
-  border-color: gainsboro;
+  border-color: #00b5ff;
   background: #00b5ff;
 }
 
@@ -526,6 +529,8 @@ footer{
   position: sticky;
   left: 0;
   right: 0;
+  border: 1px solid #0f96d9;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 }
 
 .moremenu{

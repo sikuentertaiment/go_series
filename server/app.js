@@ -66,7 +66,7 @@ const handleNewSeries = (req,res)=>{
 		// handling clicksfly link
 		// handle kategori
 		// normalize the data, save it
-		let data = handleAdditional(await handleFile(parseJSON(req.fields,['keterangan','link_batch','link_episode','kategori']),req.files));
+		let data = handleAdditional(await handleFile(parseJSON(req.fields,['keterangan','link_batch','link_episode','kategori','link_stream']),req.files));
 		data = await handleLinkClicksFly(data);
 		const series_id = getNewSeriesID();
 		await handleKategori(data.kategori,series_id);
@@ -81,7 +81,7 @@ const handleEditSeries = (req,res)=>{
 		// handling clicksfly link
 		// handle kategori
 		// normalize the data, save it
-		let data = handleAdditional(await handleFile(parseJSON(req.fields,['keterangan','link_batch','link_episode','kategori']),req.files),true);
+		let data = handleAdditional(await handleFile(parseJSON(req.fields,['keterangan','link_batch','link_episode','kategori','link_stream']),req.files),true);
 		data = await handleLinkClicksFly(data);
 		const series_id = req.fields.series_id;
 		await handleKategoriEdit(data.kategori,series_id);

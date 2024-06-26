@@ -27,6 +27,8 @@ const view = {
 			className:'showcase',
 			onadded(){
 				this.generateItems();
+				console.log('called');
+				console.log(this.offsetHeight,app.content.offsetHeight);
 				if(this.offsetHeight >= app.content.offsetHeight || app.content.isMinHeightAuto){
 					app.content.style.minHeight = 'auto';
 					app.content.isMinHeightAuto = true;
@@ -178,13 +180,12 @@ const view = {
           <div style=width:100%;>
             <div style='display: flex;' class=width50>
               <div style="
-                padding: 20px;
                 background: white;
                 border-radius: 8px;
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-              	<div style=margin-bottom:20px;display:flex;gap:5px;>
+              	<div style=display:flex;gap:5px;padding:20px;padding-bottom:0;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Series
@@ -194,12 +195,12 @@ const view = {
 	              		Statistik Series
 	              	</div>
               	</div>
-                <div style=width:100%;height:300px;border-radius:8px;overflow:hidden;background:lightgray;>
-                  <img src="${param.banner_series}" class=fitimage>
+                <div style=height:300px;border-radius:8px;overflow:hidden;padding:20px;padding-bottom:0px;>
+                  <img src="${param.banner_series}" class=fitimage style="border-radius:8px;">
                 </div>
                 <div class="titledesc">
                   <div class="imagecard card">
-                    <img src="${param.logo_series}" class=fitimage>
+                    <img src="${param.logo_series}" class=fitimage style=background:whitesmoke;>
                   </div>
                   <div style=width:100%; class="title">
                     <div class=bigtitle>${param.nama}</div>
@@ -227,7 +228,7 @@ const view = {
                   </div>
                   <div style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;">${param.sinopsis}</div>
                 </div>
-                <div class=sinopsis style=padding:20px;>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -248,7 +249,7 @@ const view = {
                   </div>
                   <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama></div>
                 </div>
-                <div class=sinopsis style=padding:20px;>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -281,7 +282,7 @@ const view = {
                   		padding:20px;
                   	">
                   		<div class=bold style=display:flex;justify-content:space-between;align-items:center;>
-                  			<div>Episode 1 Dari 4 Episode</div>
+                  			<div>${param.link_stream ? String(param.link_stream.length) + ' Episode' : 'Episode Belum Tersedia'}</div>
                   			<div style="
                   				width:24px;height:24px;
                   				cursor:pointer;
@@ -290,8 +291,8 @@ const view = {
                   			</div>
                   		</div>
                   		<div id=list_stream_eps_el style="
-                  			margin-top:10px;
-                  			padding:10px;border-top:1px solid gainsboro;
+                  			margin-top:20px;
+                  			padding:10px;border:1px solid gainsboro;
                   			background:white;
                   			max-height:300px;
                   			overflow:auto;overflow-x:hidden;
@@ -301,7 +302,7 @@ const view = {
                   	</div>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -474,13 +475,27 @@ const view = {
 				}
 			},
 			generateStreamAvailEps(){
-				param.stream_eps = [{label:'Google Drive: Episode 1',link:'https://zonadrakor.in/e/p7as3lepsce7.html'}];
-				param.stream_eps.forEach((item,i)=>{
+				if(!param.link_stream)
+					return this.list_stream_eps_el.addChild(makeElement('div',{
+						innerHTML:`
+							Episode streaming belum tersedia!
+						`,
+						style:`
+							padding:5px;
+							display:flex;
+							align-items:center;
+						`
+					}))
+				param.link_stream.forEach((item,i)=>{
+					const changeEpisode = (index)=>{
+						this.changeEpsisodeStream(index);
+					}
 					this.list_stream_eps_el.addChild(makeElement('div',{
 						innerHTML:`
 							<div style=min-width:24px;>${i+1}.</div>
 							<div style=width:100%;> ${item.label}</div>
 							<div class=goldbutton id=playButton>
+								<img src=./more/media/playstreamicon.png class=fitimage style=width:18px;height:18px;>
 								Tonton
 							</div>
 						`,
@@ -495,18 +510,19 @@ const view = {
 							this.playButton.onclick = ()=>{
 								changeEpisode(this.index);
 							}
+							if(i===0)
+								this.playButton.click();
 						}
 					}))
 				})
-				const changeEpisode = (index)=>{
-					this.changeEpsisodeStream(index);
-				}
 			},
 			generateIframe(eps){
-				return makeElement('iframe',{
+				if(!eps.attributes)
+					eps.attributes = {};
+				return makeElement('iframe',Object.assign({
 					className:'iframe_player',
 					src:eps.src
-				})
+				},eps.attributes))
 			},
 			handleOnlineStreams(){
 				this.pushPlayerLoading();
@@ -534,7 +550,6 @@ const view = {
 				this.iframe_player_parent.addChild(makeElement('div',{
 					id:'initLoading',
 					style:`
-						background:#f5f5f5eb;
 						display:flex;justify-content:center;
 						align-items:center; 
 						flex-direction:column;
@@ -542,17 +557,18 @@ const view = {
 						gap:20px;
 					`,
 					innerHTML:`
-						<div style=opacity:.1;>
-							<img src=./more/media/initloading.gif>
+						<div>
+							<img src=./more/media/playstreamicon.png>
 						</div>
 						<div style="
-							font-weight:bold;color:gray;
-						">Mohon Tunggu...</div>
+							font-weight:bold;
+							color:white;
+						">Silahkan pilih episode!</div>
 					`
 				}));
 			},
 			changeEpsisodeStream(index){
-				this.iframe_player_parent.replaceChild(this.generateIframe({src:param.stream_eps[index].link}))
+				this.iframe_player_parent.replaceChild(this.generateIframe({src:param.link_stream[index].link,attributes:param.link_stream[index].attribute}))
 			}
 		})
 	},
@@ -936,19 +952,19 @@ const view = {
           <div style=width:100%;>
             <div style='display: flex;' class=width50>
               <div style="
-                padding: 20px;
                 background: white;
                 border-radius: 8px;
                 width: 100%;
                 border: 1px solid gainsboro;
-              " class=card><div style=margin-bottom:20px;display:flex;gap:5px;>
+              " class=card>
+              	<div style=margin-bottom:20px;display:flex;gap:5px;padding:20px;>
               		<div class=goldbutton style=gap:5px;width:100%; id=savebutton>
 	              		<img src=./more/media/saveicon.png width=24>
 	              		Simpan Series
 	              	</div>
               	</div>
-              	<div class=bold>Edit Series</div>
-              	<div style=margin-top:20px;>
+              	<div class=bold style="padding:0 20px;">Edit Series</div>
+              	<div style=margin-top:20px;padding:20px;padding-top:0px;>
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Nama Series</div>
               			<div style=display:flex;>
@@ -1017,7 +1033,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Link</div>
               					<div style=display:flex;width:100%;>
-              						<input id=link_batch>
+              						<input id=link_batch placeholder="Masukan Value Link...">
               					</div>
               				</div>
               			</div>
@@ -1025,7 +1041,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Label</div>
               					<div style=display:flex;width:100%;>
-              						<input id=label_batch>
+              						<input id=label_batch placeholder="Masukan Lable Link Batch...">
               					</div>
               				</div>
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
@@ -1051,7 +1067,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Link</div>
               					<div style=display:flex;width:100%;>
-              						<input id=link_episode>
+              						<input id=link_episode placeholder="Masukan Value Link...">
               					</div>
               				</div>
               			</div>
@@ -1059,7 +1075,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Label</div>
               					<div style=display:flex;width:100%;>
-              						<input id=label_episode>
+              						<input id=label_episode placeholder="Masukan Label Episode...">
               					</div>
               				</div>
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
@@ -1077,6 +1093,37 @@ const view = {
 				              </div>
               			</div>
               		</div>
+              		<div style=display:flex;flex-direction:column;gap:10px;margin-bottom:10px;>
+              			<div>Link Streaming</div>
+              			<div class='linkbox' id=link_box_stream>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Link</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=link_stream placeholder="Masukan Src Link...">
+              					</div>
+              				</div>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Label</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=label_stream placeholder="Masukan Label Link...">
+              					</div>
+              				</div>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;align-items:flex-start;flex-direction:column;>
+              				<div style="display:flex;width:100%;background: whitesmoke;border: 1px solid gainsboro;border-radius: 5px;flex-direction:column;">
+              					<div style=display:flex;align-items:center;padding:10px;padding-bottom:0;>Attributes</div>
+              					<div style=display:flex;padding:10px;>
+              						<textarea id=attribute_stream placeholder="Masukan Attributes..." class=child></textarea>
+              					</div>
+              				</div>
+              				<div class=goldbutton id=new_link_stream>
+				                <img src=./more/media/addicon.png style=width:24px;height:24px;>
+				                Link Baru
+				              </div>
+              			</div>
+              		</div>
               	</div>
               </div>
             </div>
@@ -1089,6 +1136,7 @@ const view = {
 					app.content.style.minHeight = 'auto';
 				this.newLinkInit('episode');
 				this.newLinkInit('batch');
+				this.newLinkInit('stream');
 				this.handleImagesFile();
 
 				this.savebutton.onclick = ()=>{
@@ -1105,6 +1153,7 @@ const view = {
 				keterangan:null,
 				link_episode:[],
 				link_batch:[],
+				link_stream:[],
 				kategori:null,
 				small_title:null,
 				logo_series_link:null,
@@ -1122,7 +1171,8 @@ const view = {
 				link_batch:'JSON',
 				link_episode:'JSON',
 				banner_series_link:'string',
-				logo_series_link:'string'
+				logo_series_link:'string',
+				link_stream:'JSON'
 			},
 			newLinkInit(state){
 
@@ -1132,6 +1182,10 @@ const view = {
 						index:null
 					},
 					episode:{
+						active:false,
+						index:null
+					},
+					stream:{
 						active:false,
 						index:null
 					}
@@ -1165,6 +1219,8 @@ const view = {
 					const link = this.series_data[`link_${state}`][index];
 					this[`label_${state}`].value = link.label;
 					this[`link_${state}`].value = link.link;
+					if(state==='stream')
+							this.attribute_stream.value = this.getJSONUrlString(link.attribute);
 				}
 
 				const un_edit_link = (state,click=false)=>{
@@ -1231,7 +1287,8 @@ const view = {
 					const label = this[`label_${state}`].value;
 					let link = this[`link_${state}`].value;
 					const index = edit_status[state].index !== null ? edit_status[state].index : this.series_data[`link_${state}`].length;
-					const encode = this[`encode_${state}`].value;
+					const encode = state==='stream' ? '0' : this[`encode_${state}`].value;
+					const attribute = state==='stream' ? this.getJSONParsed(this.attribute_stream.value) : null;
 
 					// handle 0 value
 					if(!label.length || !link.length || !encode.length)
@@ -1246,6 +1303,8 @@ const view = {
 						
 						this.series_data[`link_${state}`][index].label = label;
 						this.series_data[`link_${state}`][index].link = link;
+						if(state==='stream')
+							this.series_data.link_stream[index].attribute = attribute;
 
 						const el = this[`link_box_${state}`].findall('.EpsElItem')[index];
 						el.label.innerText = label;
@@ -1253,12 +1312,19 @@ const view = {
 						el.link.innerText = link.slice(0,50)+'...';
 						un_edit_link(state,true);
 					}else{
-						this.series_data[`link_${state}`].push({link,label,index});
+						const data_obj = {link,label,index};
+						
+						if(state==='stream')
+							data_obj.attribute = attribute;
+
+						this.series_data[`link_${state}`].push(data_obj);
 						display_link_([{link,label,index}]);
 					}
 
 					this[`link_${state}`].value = '';
 					this[`label_${state}`].value = '';
+					if(state==='stream')
+							this.attribute_stream.value = '';
 				}
 
 				// handling edit
@@ -1373,6 +1439,14 @@ const view = {
 						app.removeInitLoading();
 					}
 				})
+			},
+			getJSONUrlString(param){
+				let text = '';
+				const keys = Object.keys(param);
+				for(let i=0;i<keys.length;i++){
+					text += `${keys[i]}=${param[keys[i]]}${i===keys.length-1?'':'\n'}`;
+				}
+				return text;
 			}
 		})
 	}
