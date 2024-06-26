@@ -48,6 +48,11 @@ app.post('/newseries',async (req,res)=>{
 	handleNewSeries(req,res);
 })
 
+app.post('/editseries',async (req,res)=>{
+	// route for adding new data
+	handleEditSeries(req,res);
+})
+
 // define the functions
 const getFrontData = ()=>{
 	return new Promise(async (resolve,reject)=>{
@@ -67,6 +72,21 @@ const handleNewSeries = (req,res)=>{
 		await handleKategori(data.kategori,series_id);
 		await db.ref(`series/${series_id}`).set(data);
 		res.json({valid:true,message:'Series successfuly added!'});
+	},req,res);
+}
+
+const handleEditSeries = (req,res)=>{
+	tryBlock(async (req,res)=>{
+		// handling file, uploading, and getting the paths also
+		// handling clicksfly link
+		// handle kategori
+		// normalize the data, save it
+		let data = handleAdditional(await handleFile(parseJSON(req.fields,['keterangan','link_batch','link_episode','kategori']),req.files),true);
+		data = await handleLinkClicksFly(data);
+		const series_id = req.fields.series_id;
+		await handleKategoriEdit(data.kategori,series_id);
+		await db.ref(`series/${series_id}`).update(data);
+		res.json({valid:true,message:'Series successfuly updated!'});
 	},req,res);
 }
 
@@ -115,6 +135,28 @@ const handleKategori = (param,param2)=>{
 	})
 }
 
+const handleKategoriEdit = (param,param2)=>{
+	return new Promise(async (resolve,reject)=>{
+		let kategori = (await db.ref('kategori').get()).val()||{};
+		param.forEach((p)=>{
+			if(!kategori[p]){
+				kategori[p] = [];
+			}
+			if(!kategori[p].includes(param2))
+				kategori[p].push(param2);
+		})
+
+		for(let i in kategori){
+			if(kategori[i].includes(param2) && !param.includes(i)){
+				kategori[i] = kategori[i].filter((x)=>x!==param2);
+			}
+		}
+
+		await db.ref('kategori').set(kategori);
+		resolve(true);
+	})
+}
+
 const getNewSeriesID = ()=>{
 	return `sID_${new Date().getTime()}`;
 }
@@ -148,11 +190,11 @@ const getDateCreate = ()=>{
 	return formattedDate + ' ' + formattedTime;
 }
 
-const handleAdditional = (param)=>{
-	return Object.assign(param,{
-		date_create:getDateCreate(),
-		last_edit:getDateCreate()
-	})
+const handleAdditional = (param,edit=false)=>{
+	if(!edit)
+		param.date_create = getDateCreate();
+	param.last_edit = getDateCreate();
+	return param;
 }
 
 const handleLinkClicksFly = (data)=>{

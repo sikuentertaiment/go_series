@@ -149,7 +149,7 @@ const view = {
 			},
 			pushContent(){
 				if(app.home_data.valid){
-					const cc = ['Semua'].concat(Object.keys(app.home_data.data.kategori))
+					const cc = ['Semua'].concat(Object.keys(app.home_data.data.kategori));
 					for(let i of cc){
 						const item = app.home_data.data.kategori[i];
 						app.categoriEls[i] = this.nav.addChild(makeElement('div',{
@@ -256,6 +256,59 @@ const view = {
                     margin-bottom: 20px;
                   ">
                     <div style="
+                        max-width: 150px;
+                        min-width: 150px;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Streaming Online</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info id=onlinestreaming>
+                  	<div style=width:100%;height:315px;max-height:315px;min-height:315px;background:black;border-radius:10px;overflow:hidden; id=iframe_player_parent>
+                  	</div>
+                  	<div id=player_navigation style="
+                  		background:whitesmoke;
+                  		border-radius:8px;
+                  		margin-top:10px;
+                  		border:1px solid gainsboro;
+                  		overflow:auto;
+                  		overflow-y:hidden;
+                  		align-items:center;
+                  		padding:20px;
+                  	">
+                  		<div class=bold style=display:flex;justify-content:space-between;align-items:center;>
+                  			<div>Episode 1 Dari 4 Episode</div>
+                  			<div style="
+                  				width:24px;height:24px;
+                  				cursor:pointer;
+                  			" id=episode_expand>
+                  				<img src=./more/media/expand.png class=fitimage>
+                  			</div>
+                  		</div>
+                  		<div id=list_stream_eps_el style="
+                  			margin-top:10px;
+                  			padding:10px;border-top:1px solid gainsboro;
+                  			background:white;
+                  			max-height:300px;
+                  			overflow:auto;overflow-x:hidden;
+                  			border-radius:0 0 10px 10px;
+                  			display:none;
+                  		"></div>
+                  	</div>
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  ">
+                    <div style="
                         max-width: 100px;
                         min-width: 100px;
                         background: #00b5ff;
@@ -296,6 +349,7 @@ const view = {
 				this.initDownloadMenuNav();
 				this.generateDownloadLinks();
 				this.handleMoreAdminButton();
+				this.handleOnlineStreams();
 				if(this.offsetHeight >= app.content.offsetHeight)
 					app.content.style.minHeight = 'auto';
 				app.removeInitLoading();
@@ -360,6 +414,7 @@ const view = {
 				if(!param.link_batch){
 					this.batch.addChild(makeElement('div',{
 						className:'downloaditem',
+						style:'border-bottom:none;',
 						innerHTML:'Link Download Belum Tersedia!'
 					}))
 				}else{
@@ -369,7 +424,7 @@ const view = {
 							downloadLink:item.shortenedUrl,
 							style:`${i===param.link_batch.length - 1 ? 'border-bottom:none;' : ''}`,
 							innerHTML:`
-								<div>#${i+1}. ${item.label}</div>
+								<div style=white-space:nowrap;overflow:hidden;width:100%;>#${i+1}. ${item.label}</div>
 								<div class=downloadbutton id=downloadbutton>
 									<img src="./more/media/downloadicon.png">Download
 								</div>
@@ -390,6 +445,7 @@ const view = {
 				if(!param.link_episode){
 					this.episode.addChild(makeElement('div',{
 						className:'downloaditem',
+						style:'border-bottom:none;',
 						innerHTML:'Link Download Belum Tersedia!'
 					}))
 				}else{
@@ -416,6 +472,87 @@ const view = {
 						}))
 					})
 				}
+			},
+			generateStreamAvailEps(){
+				param.stream_eps = [{label:'Google Drive: Episode 1',link:'https://zonadrakor.in/e/p7as3lepsce7.html'}];
+				param.stream_eps.forEach((item,i)=>{
+					this.list_stream_eps_el.addChild(makeElement('div',{
+						innerHTML:`
+							<div style=min-width:24px;>${i+1}.</div>
+							<div style=width:100%;> ${item.label}</div>
+							<div class=goldbutton id=playButton>
+								Tonton
+							</div>
+						`,
+						autoDefine:true,
+						style:`
+							padding:5px;
+							display:flex;
+							align-items:center;
+						`,
+						index:i,
+						onadded(){
+							this.playButton.onclick = ()=>{
+								changeEpisode(this.index);
+							}
+						}
+					}))
+				})
+				const changeEpisode = (index)=>{
+					this.changeEpsisodeStream(index);
+				}
+			},
+			generateIframe(eps){
+				return makeElement('iframe',{
+					className:'iframe_player',
+					src:eps.src
+				})
+			},
+			handleOnlineStreams(){
+				this.pushPlayerLoading();
+				this.handle_expand_eps_list();
+				this.generateStreamAvailEps();
+			},
+			handle_expand_eps_list(){
+				this.episode_expand.onclick = ()=>{
+					if(this.episode_expand.expanded){
+						this.episode_expand.expanded = false;
+						this.episode_expand.find('img').updateStyle({
+							transform:'rotate(0deg)'
+						})
+						this.list_stream_eps_el.hide();
+						return
+					}
+					this.episode_expand.expanded = true;
+					this.list_stream_eps_el.show('block');
+					this.episode_expand.find('img').updateStyle({
+						transform:'rotate(-180deg)'
+					})
+				}
+			},
+			pushPlayerLoading(){
+				this.iframe_player_parent.addChild(makeElement('div',{
+					id:'initLoading',
+					style:`
+						background:#f5f5f5eb;
+						display:flex;justify-content:center;
+						align-items:center; 
+						flex-direction:column;
+						height:100%;
+						gap:20px;
+					`,
+					innerHTML:`
+						<div style=opacity:.1;>
+							<img src=./more/media/initloading.gif>
+						</div>
+						<div style="
+							font-weight:bold;color:gray;
+						">Mohon Tunggu...</div>
+					`
+				}));
+			},
+			changeEpsisodeStream(index){
+				this.iframe_player_parent.replaceChild(this.generateIframe({src:param.stream_eps[index].link}))
 			}
 		})
 	},
@@ -777,12 +914,14 @@ const view = {
 			},
 			upload_(param){
 				// show the loading indicator
+				app.openInitLoading();
 				cOn.post({
 					url:app.getReqUrl('newseries'),
 					data:param,
 					onload(){
 						alert(this.getJSONResponse().message);
 						app.openNewSeries();
+						app.removeInitLoading();
 					}
 				})
 			}
@@ -955,6 +1094,8 @@ const view = {
 				this.savebutton.onclick = ()=>{
 					this.collapseData();
 				}
+				// including the series id
+				this.series_data.series_id = app.hashParam.series_id;
 			},
 			series_data:{
 				nama:null,
@@ -967,7 +1108,8 @@ const view = {
 				kategori:null,
 				small_title:null,
 				logo_series_link:null,
-				banner_series_link:null
+				banner_series_link:null,
+				series_id:null
 			},
 			data_types:{
 				small_title:'string',
@@ -983,6 +1125,18 @@ const view = {
 				logo_series_link:'string'
 			},
 			newLinkInit(state){
+
+				const edit_status = {
+					batch:{
+						active:false,
+						index:null
+					},
+					episode:{
+						active:false,
+						index:null
+					}
+				}
+
 				const remove_link_ = (index)=>{
 					const new_links = [];
 					let removed = false;
@@ -1000,24 +1154,54 @@ const view = {
 					this[`link_box_${state}`].clear();
 					display_link_(new_links);
 				}
-				const display_link_ = (param)=>{
+
+				const edit_link = (index,state,el)=>{
+					edit_status[state].active = true;
+					edit_status[state].index = index;
+					if(edit_status[state].el)
+						edit_status[state].el.click();
+					edit_status[state].el = el;
+
+					const link = this.series_data[`link_${state}`][index];
+					this[`label_${state}`].value = link.label;
+					this[`link_${state}`].value = link.link;
+				}
+
+				const un_edit_link = (state,click=false)=>{
+					edit_status[state].active = false;
+					edit_status[state].index = null;
+					if(edit_status[state].el && click)
+						edit_status[state].el.click();
+					edit_status[state].el = null;
+
+					this[`label_${state}`].value = '';
+					this[`link_${state}`].value = '';
+				}
+
+				const display_link_ = (param,param2=null)=>{
 					param.forEach((item)=>{
 						const index = item.index;
 						const label = item.label;
 						const link = item.link;
-						this[`link_box_${state}`].addChild(makeElement('div',{
+						this[`link_box_${!param2?state:param2}`].addChild(makeElement('div',{
 							style:`padding:10px;background:white;display:flex;
 								gap:8px;
 							`,
+							id:index+1,
+							className:'EpsElItem',
 							innerHTML:`
 								<div style=display:flex;align-items:center;justify-content:center;min-width:32px;>
 									${index+1}.
 								</div>
 								<div style=width:100%;display:flex;justify-content:center;flex-direction:column;overflow:hidden;>
-									<div class="bold bigone">${label}</div>
+									<div class="bold bigone" id=label>${label}</div>
 									<div class=smallone>
-										<a href="${link}" target=_blank style=color:gray;font-weight:bold;white-space:nowrap;>${link.slice(0,50)}...</a>
+										<a href="${link}" target=_blank style=color:gray;font-weight:bold;white-space:nowrap; id=link class=child>${link.slice(0,50)}...</a>
 									</div>
+								</div>
+								<div class=goldbutton class="child" id=edit_link style=background:whitesmoke;color:black;>
+									<img src=./more/media/editiconblack.png width=24>
+									<span></span>
 								</div>
 								<div class=goldbutton class="child" id=delete_link>
 									<img src=./more/media/deleteicon.png width=24>
@@ -1028,6 +1212,17 @@ const view = {
 								this.delete_link.onclick = ()=>{
 									remove_link_(index);
 								}
+								this.edit_link.onclick = ()=>{
+									if(this.edit_link.is_active){
+										this.edit_link.is_active = false;
+										this.edit_link.find('span').innerText = '';
+										un_edit_link(state);
+										return;
+									}
+									this.edit_link.is_active = true;
+									this.edit_link.find('span').innerText = 'Editing';
+									edit_link(index,state,this.edit_link);
+								}
 							}
 						}))
 					})
@@ -1035,7 +1230,7 @@ const view = {
 				this[`new_link_${state}`].onclick = ()=>{
 					const label = this[`label_${state}`].value;
 					let link = this[`link_${state}`].value;
-					const index = this.series_data[`link_${state}`].length;
+					const index = edit_status[state].index !== null ? edit_status[state].index : this.series_data[`link_${state}`].length;
 					const encode = this[`encode_${state}`].value;
 
 					// handle 0 value
@@ -1045,10 +1240,33 @@ const view = {
 
 					if(encode==='1')
 						link = this.encodeClicksFlyLink(link);
-					this.series_data[`link_${state}`].push({link,label,index});
-					display_link_([{link,label,index}]);
+
+					// handle edit state
+					if(edit_status[state].active){
+						
+						this.series_data[`link_${state}`][index].label = label;
+						this.series_data[`link_${state}`][index].link = link;
+
+						const el = this[`link_box_${state}`].findall('.EpsElItem')[index];
+						el.label.innerText = label;
+						el.link.href = link;
+						el.link.innerText = link.slice(0,50)+'...';
+						un_edit_link(state,true);
+					}else{
+						this.series_data[`link_${state}`].push({link,label,index});
+						display_link_([{link,label,index}]);
+					}
+
 					this[`link_${state}`].value = '';
 					this[`label_${state}`].value = '';
+				}
+
+				// handling edit
+				if(app.hashParam[`link_${state}`] && app.hashParam[`link_${state}`].length > 0){
+					app.hashParam[`link_${state}`].forEach((item)=>{
+						this.series_data[`link_${state}`].push(item);
+						display_link_([item],state);
+					})
 				}
 			},
 			encodeClicksFlyLink(link){
@@ -1056,7 +1274,7 @@ const view = {
 				try{
 					return atob(splited[1].split('=')[1]);
 				}catch(e){
-					alert('Fail to encode the link, make sure the link is corectly!');
+					alert('Fail to encode the link, make sure the link is correct!');
 				}
 			},
 			handleImagesFile(){
@@ -1145,13 +1363,14 @@ const view = {
 				return form_;
 			},
 			upload_(param){
-				// show the loading indicator
+				app.openInitLoading();
 				cOn.post({
-					url:app.getReqUrl('newseries'),
+					url:app.getReqUrl('editseries'),
 					data:param,
 					onload(){
 						alert(this.getJSONResponse().message);
 						app.openNewSeries();
+						app.removeInitLoading();
 					}
 				})
 			}

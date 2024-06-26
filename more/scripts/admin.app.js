@@ -164,7 +164,7 @@ const app = {
 		if(a.search && a.key){
 			this.setActiveCategory(null,'Semua');
 			for(let i in this.home_data.data.series){
-				const item = this.home_data.data.series[i];
+				const item = Object.assign(this.home_data.data.series[i],{series_id:i});
 				let is_continue = false;
 				for(let i of ['nama','sinopsis','small_title']){
 					if(item[i].toLowerCase().indexOf(decodeURIComponent(a.key).toLowerCase())!==-1){
@@ -176,14 +176,19 @@ const app = {
 				if(is_continue)
 					continue;
 
-				if(item.kategori.map((x)=>x.toLowerCase()).includes(a.key.toLowerCase())){
+				if(item.kategori.map((x)=>x.toLowerCase()).includes(decodeURIComponent(a.key).toLowerCase())){
 					data.push(item);
 					is_continue = true;
 				}
 				if(is_continue)
 					continue;
 
-				
+				for(let i in item.keterangan){
+					if(item.keterangan[i].toLowerCase().indexOf(decodeURIComponent(a.key).toLowerCase())!==-1){
+						data.push(item);
+						break;
+					}
+				}
 
 			}
 			return data;
@@ -195,13 +200,13 @@ const app = {
 
 
 			this.home_data.data.kategori[a.key].forEach((id)=>{
-				data.push(this.home_data.data.series[id]);
+				data.push(Object.assign(this.home_data.data.series[id],{series_id:id}));
 			})
 			return data;
 		}
 		this.setActiveCategory(null,'Semua');
 		for(let i in this.home_data.data.series){
-			data.push(this.home_data.data.series[i]);
+			data.push(Object.assign(this.home_data.data.series[i],{series_id:i}));
 		}
 		return data;
 	},
