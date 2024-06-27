@@ -36,11 +36,20 @@ app.get('/home',async (req,res)=>{
 		res.json({valid:false,message:"Fail to process fron data!"});
 	}
 })
+
 app.get('/s',async (req,res)=>{
 	// getting data by keyword, searching function
 	res.send('helloworld');
 })
 
+app.get('/delete',(req,res)=>{
+	try{
+		console.log(req.query.series_id);
+		res.json({valid:true,message:'Series berhasil dihapus!'});
+	}catch(e){
+		res.json({valid:false});
+	}
+})
 
 // admin routes
 app.post('/newseries',async (req,res)=>{

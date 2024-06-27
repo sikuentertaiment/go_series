@@ -192,7 +192,7 @@ const view = {
 	              		<img src=./more/media/statsicon.png width=18>
 	              		Statistik Series
 	              	</div>
-	              	<div class=goldbutton style=gap:5px;width:100%; id=statistik_series>
+	              	<div class=goldbutton style=gap:5px;width:100%; id=delete_series>
 	              		<img src=./more/media/deleteicon.png width=18>
 	              		Hapus Series
 	              	</div>
@@ -364,6 +364,9 @@ const view = {
 					}
 					this.statistik_series.onclick = ()=>{
 
+					}
+					this.delete_series.onclick = ()=>{
+						this.deleteSeries();
 					}
 				}
 			},
@@ -571,6 +574,27 @@ const view = {
 			},
 			changeEpsisodeStream(index){
 				this.iframe_player_parent.replaceChild(this.generateIframe({src:param.link_stream[index].link,attributes:param.link_stream[index].attribute}))
+			},
+			async deleteSeries(){
+				if(!app.hashParam)
+					return alert('Aksi tidak valid!');
+				const permission = prompt('Beneran mau dihapus?','Tidak/Ya');
+				if(permission.toLowerCase() !== 'ya' )
+					return
+				const response = await new Promise((resolve,reject)=>{
+					cOn.get({
+						url:app.getReqUrl(`delete?series_id=${app.hashParam.series_id}`),
+						onload(){
+							resolve(this.getJSONResponse());
+						}
+					})
+				})
+				if(response.valid){
+					alert(response.message);
+					location.hash = 'Home';
+					return 
+				}
+				return alert('Something is wrong, while trying to delete the series!');
 			}
 		})
 	},
