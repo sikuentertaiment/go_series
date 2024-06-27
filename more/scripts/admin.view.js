@@ -27,8 +27,6 @@ const view = {
 			className:'showcase',
 			onadded(){
 				this.generateItems();
-				console.log('called');
-				console.log(this.offsetHeight,app.content.offsetHeight);
 				if(this.offsetHeight >= app.content.offsetHeight || app.content.isMinHeightAuto){
 					app.content.style.minHeight = 'auto';
 					app.content.isMinHeightAuto = true;
@@ -185,7 +183,7 @@ const view = {
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-              	<div style=display:flex;gap:5px;padding:20px;padding-bottom:0;>
+              	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Series
@@ -193,6 +191,10 @@ const view = {
 	              	<div class=goldbutton style=gap:5px;width:100%; id=statistik_series>
 	              		<img src=./more/media/statsicon.png width=18>
 	              		Statistik Series
+	              	</div>
+	              	<div class=goldbutton style=gap:5px;width:100%; id=statistik_series>
+	              		<img src=./more/media/deleteicon.png width=18>
+	              		Hapus Series
 	              	</div>
               	</div>
                 <div style=height:300px;border-radius:8px;overflow:hidden;padding:20px;padding-bottom:0px;>
@@ -581,19 +583,19 @@ const view = {
           <div style=width:100%;>
             <div style='display: flex;' class=width50>
               <div style="
-                padding: 20px;
                 background: white;
                 border-radius: 8px;
                 width: 100%;
                 border: 1px solid gainsboro;
-              " class=card><div style=margin-bottom:20px;display:flex;gap:5px;>
+              " class=card>
+              	<div style=display:flex;gap:5px;padding:20px;>
               		<div class=goldbutton style=gap:5px;width:100%; id=savebutton>
 	              		<img src=./more/media/saveicon.png width=24>
 	              		Publish Series
 	              	</div>
               	</div>
-              	<div class=bold>Tambah Series</div>
-              	<div style=margin-top:20px;>
+              	<div class=bold style="padding:0 20px;">Tambah Series</div>
+              	<div style=margin-top:20px;padding:20px;padding-top:0px;>
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Nama Series</div>
               			<div style=display:flex;>
@@ -627,7 +629,7 @@ const view = {
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Icon Series</div>
               			<div class='child imagepreview' id=image_preview_icon>
-              				<img src=./more/media/nopreview.png class=fitimage>
+              				<img src="./more/media/nopreview.png" class=fitimage>
               			</div>
               			<div style=display:flex;>
               				<input type=file accept=image/png id=logo_series>
@@ -642,7 +644,7 @@ const view = {
               		<div style=display:flex;flex-direction:column;gap:5px;margin-bottom:10px;>
               			<div>Banner Series</div>
               			<div class='child imagepreview' id=image_preview_banner>
-              				<img src=./more/media/nopreview.png class=fitimage>
+              				<img src="./more/media/nopreview.png" class=fitimage>
               			</div>
               			<div style=display:flex;>
               				<input type=file accept=image/png id=banner_series>
@@ -662,7 +664,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Link</div>
               					<div style=display:flex;width:100%;>
-              						<input id=link_batch>
+              						<input id=link_batch placeholder="Masukan Value Link...">
               					</div>
               				</div>
               			</div>
@@ -670,7 +672,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Label</div>
               					<div style=display:flex;width:100%;>
-              						<input id=label_batch>
+              						<input id=label_batch placeholder="Masukan Lable Link Batch...">
               					</div>
               				</div>
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
@@ -696,7 +698,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Link</div>
               					<div style=display:flex;width:100%;>
-              						<input id=link_episode>
+              						<input id=link_episode placeholder="Masukan Value Link...">
               					</div>
               				</div>
               			</div>
@@ -704,7 +706,7 @@ const view = {
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
               					<div>Label</div>
               					<div style=display:flex;width:100%;>
-              						<input id=label_episode>
+              						<input id=label_episode placeholder="Masukan Label Episode...">
               					</div>
               				</div>
               				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
@@ -722,6 +724,37 @@ const view = {
 				              </div>
               			</div>
               		</div>
+              		<div style=display:flex;flex-direction:column;gap:10px;margin-bottom:10px;>
+              			<div>Link Streaming</div>
+              			<div class='linkbox' id=link_box_stream>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Link</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=link_stream placeholder="Masukan Src Link...">
+              					</div>
+              				</div>
+              				<div style="display:flex;align-items:center;gap:5px;width:100%;background: whitesmoke;padding: 5px 10px;border: 1px solid gainsboro;border-radius: 5px;">
+              					<div>Label</div>
+              					<div style=display:flex;width:100%;>
+              						<input id=label_stream placeholder="Masukan Label Link...">
+              					</div>
+              				</div>
+              			</div>
+              			<div style=display:flex;gap:8px;justify-content:space-between;align-items:flex-start;flex-direction:column;>
+              				<div style="display:flex;width:100%;background: whitesmoke;border: 1px solid gainsboro;border-radius: 5px;flex-direction:column;">
+              					<div style=display:flex;align-items:center;padding:10px;padding-bottom:0;>Attributes</div>
+              					<div style=display:flex;padding:10px;>
+              						<textarea id=attribute_stream placeholder="Masukan Attributes..." class=child></textarea>
+              					</div>
+              				</div>
+              				<div class=goldbutton id=new_link_stream>
+				                <img src=./more/media/addicon.png style=width:24px;height:24px;>
+				                Link Baru
+				              </div>
+              			</div>
+              		</div>
               	</div>
               </div>
             </div>
@@ -734,6 +767,7 @@ const view = {
 					app.content.style.minHeight = 'auto';
 				this.newLinkInit('episode');
 				this.newLinkInit('batch');
+				this.newLinkInit('stream');
 				this.handleImagesFile();
 
 				this.savebutton.onclick = ()=>{
@@ -748,6 +782,7 @@ const view = {
 				keterangan:null,
 				link_episode:[],
 				link_batch:[],
+				link_stream:[],
 				kategori:null,
 				small_title:null,
 				logo_series_link:null,
@@ -764,9 +799,26 @@ const view = {
 				link_batch:'JSON',
 				link_episode:'JSON',
 				banner_series_link:'string',
-				logo_series_link:'string'
+				logo_series_link:'string',
+				link_stream:'JSON'
 			},
 			newLinkInit(state){
+
+				const edit_status = {
+					batch:{
+						active:false,
+						index:null
+					},
+					episode:{
+						active:false,
+						index:null
+					},
+					stream:{
+						active:false,
+						index:null
+					}
+				}
+
 				const remove_link_ = (index)=>{
 					const new_links = [];
 					let removed = false;
@@ -784,24 +836,56 @@ const view = {
 					this[`link_box_${state}`].clear();
 					display_link_(new_links);
 				}
-				const display_link_ = (param)=>{
+
+				const edit_link = (index,state,el)=>{
+					edit_status[state].active = true;
+					edit_status[state].index = index;
+					if(edit_status[state].el)
+						edit_status[state].el.click();
+					edit_status[state].el = el;
+
+					const link = this.series_data[`link_${state}`][index];
+					this[`label_${state}`].value = link.label;
+					this[`link_${state}`].value = link.link;
+					if(state==='stream')
+							this.attribute_stream.value = this.getJSONUrlString(link.attribute);
+				}
+
+				const un_edit_link = (state,click=false)=>{
+					edit_status[state].active = false;
+					edit_status[state].index = null;
+					if(edit_status[state].el && click)
+						edit_status[state].el.click();
+					edit_status[state].el = null;
+
+					this[`label_${state}`].value = '';
+					this[`link_${state}`].value = '';
+				}
+
+				const display_link_ = (param,param2=null)=>{
 					param.forEach((item)=>{
 						const index = item.index;
 						const label = item.label;
 						const link = item.link;
-						this[`link_box_${state}`].addChild(makeElement('div',{
+						this[`link_box_${!param2?state:param2}`].addChild(makeElement('div',{
 							style:`padding:10px;background:white;display:flex;
 								gap:8px;
 							`,
+							id:index+1,
+							className:'EpsElItem',
 							innerHTML:`
 								<div style=display:flex;align-items:center;justify-content:center;min-width:32px;>
 									${index+1}.
 								</div>
 								<div style=width:100%;display:flex;justify-content:center;flex-direction:column;overflow:hidden;>
-									<div class="bold bigone">${label}</div>
+									<div class="bold bigone" id=label>${label}</div>
 									<div class=smallone>
-										<a href="${link}" target=_blank style=color:gray;font-weight:bold;white-space:nowrap;>${link.slice(0,50)}...</a>
+										<a href="${link}" target=_blank style=color:gray;font-weight:bold;white-space:nowrap; id=link class=child>${link.slice(0,50)}...</a>
 									</div>
+								</div>
+								<div class=goldbutton class="child" id=edit_link style=background:whitesmoke;color:black;>
+									<img src=./more/media/editiconblack.png width=24>
+									<span></span>
 								</div>
 								<div class=goldbutton class="child" id=delete_link>
 									<img src=./more/media/deleteicon.png width=24>
@@ -812,6 +896,17 @@ const view = {
 								this.delete_link.onclick = ()=>{
 									remove_link_(index);
 								}
+								this.edit_link.onclick = ()=>{
+									if(this.edit_link.is_active){
+										this.edit_link.is_active = false;
+										this.edit_link.find('span').innerText = '';
+										un_edit_link(state);
+										return;
+									}
+									this.edit_link.is_active = true;
+									this.edit_link.find('span').innerText = 'Editing';
+									edit_link(index,state,this.edit_link);
+								}
 							}
 						}))
 					})
@@ -819,8 +914,9 @@ const view = {
 				this[`new_link_${state}`].onclick = ()=>{
 					const label = this[`label_${state}`].value;
 					let link = this[`link_${state}`].value;
-					const index = this.series_data[`link_${state}`].length;
-					const encode = this[`encode_${state}`].value;
+					const index = edit_status[state].index !== null ? edit_status[state].index : this.series_data[`link_${state}`].length;
+					const encode = state==='stream' ? '0' : this[`encode_${state}`].value;
+					const attribute = state==='stream' ? this.getJSONParsed(this.attribute_stream.value) : null;
 
 					// handle 0 value
 					if(!label.length || !link.length || !encode.length)
@@ -829,10 +925,34 @@ const view = {
 
 					if(encode==='1')
 						link = this.encodeClicksFlyLink(link);
-					this.series_data[`link_${state}`].push({link,label,index});
-					display_link_([{link,label,index}]);
+
+					// handle edit state
+					if(edit_status[state].active){
+						
+						this.series_data[`link_${state}`][index].label = label;
+						this.series_data[`link_${state}`][index].link = link;
+						if(state==='stream')
+							this.series_data.link_stream[index].attribute = attribute;
+
+						const el = this[`link_box_${state}`].findall('.EpsElItem')[index];
+						el.label.innerText = label;
+						el.link.href = link;
+						el.link.innerText = link.slice(0,50)+'...';
+						un_edit_link(state,true);
+					}else{
+						const data_obj = {link,label,index};
+						
+						if(state==='stream')
+							data_obj.attribute = attribute;
+
+						this.series_data[`link_${state}`].push(data_obj);
+						display_link_([{link,label,index}]);
+					}
+
 					this[`link_${state}`].value = '';
 					this[`label_${state}`].value = '';
+					if(state==='stream')
+							this.attribute_stream.value = '';
 				}
 			},
 			encodeClicksFlyLink(link){
@@ -840,7 +960,7 @@ const view = {
 				try{
 					return atob(splited[1].split('=')[1]);
 				}catch(e){
-					alert('Fail to encode the link, make sure the link is corectly!');
+					alert('Fail to encode the link, make sure the link is correct!');
 				}
 			},
 			handleImagesFile(){
@@ -929,7 +1049,6 @@ const view = {
 				return form_;
 			},
 			upload_(param){
-				// show the loading indicator
 				app.openInitLoading();
 				cOn.post({
 					url:app.getReqUrl('newseries'),
@@ -940,6 +1059,14 @@ const view = {
 						app.removeInitLoading();
 					}
 				})
+			},
+			getJSONUrlString(param){
+				let text = '';
+				const keys = Object.keys(param);
+				for(let i=0;i<keys.length;i++){
+					text += `${keys[i]}=${param[keys[i]]}${i===keys.length-1?'':'\n'}`;
+				}
+				return text;
 			}
 		})
 	},
@@ -957,7 +1084,7 @@ const view = {
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-              	<div style=margin-bottom:20px;display:flex;gap:5px;padding:20px;>
+              	<div style=display:flex;gap:5px;padding:20px;>
               		<div class=goldbutton style=gap:5px;width:100%; id=savebutton>
 	              		<img src=./more/media/saveicon.png width=24>
 	              		Simpan Series
