@@ -198,7 +198,7 @@ const view = {
 	              		Hapus Series
 	              	</div>
               	</div>
-                <div style=height:300px;border-radius:8px;overflow:hidden;padding:20px;padding-bottom:0px;>
+                <div style="height:300px;border-radius:8px;overflow:hidden;margin:20px;margin-bottom:0px;background:whitesmoke;border:1px solid gainsboro">
                   <img src="${param.banner_series}" class=fitimage style="border-radius:8px;">
                 </div>
                 <div class="titledesc">
