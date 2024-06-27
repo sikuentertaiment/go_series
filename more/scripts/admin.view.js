@@ -27,9 +27,14 @@ const view = {
 			className:'showcase',
 			onadded(){
 				this.generateItems();
-				if(this.offsetHeight >= app.content.offsetHeight || app.content.isMinHeightAuto){
+				// console.log('called',this.offsetHeight,app.content.offsetHeight);
+				// if(this.offsetHeight >= app.content.offsetHeight || app.content.isMinHeightAuto){
+				// 	app.content.style.minHeight = 'auto';
+				// 	app.content.isMinHeightAuto = true;
+				// }
+				console.log(innerHeight,app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight,app.content.offsetHeight)
+				if(innerHeight <= app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
 					app.content.style.minHeight = 'auto';
-					app.content.isMinHeightAuto = true;
 				}else app.content.style.minHeight = '100%';
 				app.removeInitLoading();
 			},
@@ -140,7 +145,7 @@ const view = {
 			innerHTML:`
 				<nav class=child id=nav></nav>
 				<div style=width:32px;height:32px; class=moremenu>
-					<img src=./more/media/moreicon.png class=fitimage>
+					<img src=./more/media/moremenuicon3dots.png class=fitimage>
 				</div>
 			`,
 			autoDefine:true,

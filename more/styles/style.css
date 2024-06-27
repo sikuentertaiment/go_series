@@ -536,11 +536,13 @@ footer{
 .moremenu{
   cursor:pointer;
   background:white;
-  padding:2px 5px;
+  padding:1px 5px;
   border-radius:5px;
+  border:1px solid white;
 }
 .moremenu:hover{
-  background: gainsboro;
+  border:1px solid gainsboro;
+  background:whitesmoke;
 }
 
 .iframe_player{

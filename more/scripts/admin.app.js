@@ -8,6 +8,8 @@ const app = {
 	topLayer:find('#toplayer'),
 	finderInput:find('#finderInput'),
 	content:find('content'),
+	header:find('header'),
+	footer:find('footer'),
 	leftheader:find('#leftheader'),
 	newSeriesButton:find('#newseries'),
 	header:find('header'),
