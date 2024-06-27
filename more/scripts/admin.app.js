@@ -199,7 +199,7 @@ const app = {
 			this.setActiveCategory(null,a.key);
 
 
-			this.home_data.data.kategori[a.key].forEach((id)=>{
+			this.home_data.data.kategori[decodeURIComponent(a.key)].forEach((id)=>{
 				data.push(Object.assign(this.home_data.data.series[id],{series_id:id}));
 			})
 			return data;
@@ -225,7 +225,7 @@ const app = {
 	},
 	setActiveCategory(el=null,label=''){
 		if(!el)
-			el = this.categoriEls[label];
+			el = this.categoriEls[decodeURIComponent(label)];
 		if(this.activeCategory)
 			this.activeCategory.classList.remove('activecategory');
 		el.classList.add('activecategory');

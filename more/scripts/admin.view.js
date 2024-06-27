@@ -154,6 +154,7 @@ const view = {
 						const item = app.home_data.data.kategori[i];
 						app.categoriEls[i] = this.nav.addChild(makeElement('div',{
 							innerHTML:i,
+							style:'white-space:nowrap;',
 							item,
 							onclick(){
 								app.setActiveCategory(this);

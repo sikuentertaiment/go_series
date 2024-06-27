@@ -42,15 +42,6 @@ app.get('/s',async (req,res)=>{
 	res.send('helloworld');
 })
 
-app.get('/delete',(req,res)=>{
-	try{
-		console.log(req.query.series_id);
-		res.json({valid:true,message:'Series berhasil dihapus!'});
-	}catch(e){
-		res.json({valid:false});
-	}
-})
-
 // admin routes
 app.post('/newseries',async (req,res)=>{
 	// route for adding new data
@@ -60,6 +51,29 @@ app.post('/newseries',async (req,res)=>{
 app.post('/editseries',async (req,res)=>{
 	// route for adding new data
 	handleEditSeries(req,res);
+})
+
+app.get('/delete',async (req,res)=>{
+	try{
+		const series_id = req.query.series_id;
+		const series = (await db.ref(`series/${series_id}`).get()).val() || null;
+		if(series){
+			// handle on categories tag
+			series.kategori.forEach(async (c)=>{
+				const ccs = [];
+				(await db.ref(`kategori/${c}`).get()).val().forEach((cx)=>{
+					if(cx !== series_id)
+						ccs.push(cx);
+				})
+				await db.ref(`kategori/${c}`).set(ccs);
+			})
+			// handle delete on series tag
+			await db.ref(`series/${series_id}`).remove();
+			res.json({valid:true,message:'Series berhasil dihapus!'});
+		}else res.json({valid:false})
+	}catch(e){
+		res.json({valid:false});
+	}
 })
 
 // define the functions
