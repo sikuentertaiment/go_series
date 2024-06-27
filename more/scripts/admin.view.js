@@ -271,12 +271,11 @@ const view = {
                     <div class=line></div>
                   </div>
                   <div class=info id=onlinestreaming>
-                  	<div style=width:100%;height:315px;max-height:315px;min-height:315px;background:black;border-radius:10px;overflow:hidden; id=iframe_player_parent>
+                  	<div style="width:100%;height:315px;max-height:315px;min-height:315px;background:black;border-radius:8px 8px 0px 0px;overflow:hidden;" id=iframe_player_parent>
                   	</div>
                   	<div id=player_navigation style="
                   		background:whitesmoke;
-                  		border-radius:8px;
-                  		margin-top:10px;
+                  		border-radius:0 0 8px 8px;
                   		border:1px solid gainsboro;
                   		overflow:auto;
                   		overflow-y:hidden;
