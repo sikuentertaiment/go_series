@@ -126,7 +126,7 @@ content{
   padding: 20px 30px;
   background:whitesmoke;
   height: auto;
-  min-height: 100%;
+  height: 100%;
 }
 
 footer{
@@ -536,7 +536,7 @@ footer{
 .moremenu{
   cursor:pointer;
   background:white;
-  padding:1px 5px;
+  padding:2px 5px;
   border-radius:5px;
   border:1px solid white;
 }

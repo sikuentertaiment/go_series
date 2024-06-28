@@ -27,15 +27,9 @@ const view = {
 			className:'showcase',
 			onadded(){
 				this.generateItems();
-				// console.log('called',this.offsetHeight,app.content.offsetHeight);
-				// if(this.offsetHeight >= app.content.offsetHeight || app.content.isMinHeightAuto){
-				// 	app.content.style.minHeight = 'auto';
-				// 	app.content.isMinHeightAuto = true;
-				// }
-				console.log(innerHeight,app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight,app.content.offsetHeight)
 				if(innerHeight <= app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
-					app.content.style.minHeight = 'auto';
-				}else app.content.style.minHeight = '100%';
+					app.content.style.height = 'auto';
+				}else app.content.style.height = '100%';
 				app.removeInitLoading();
 			},
 			getDisplayLen(){
@@ -175,7 +169,13 @@ const view = {
 			}
 		})
 	},
-	details(param){
+	details(query,param){
+		if(!query.series_id && !param)
+			return app.changeState('Home');
+		if(query.series_id){
+			param = app.home_data.data.series[query.series_id];
+			app.hashParam = param;
+		}
 		return makeElement('div',{
 			className:'detail',
 			innerHTML:`
@@ -345,6 +345,35 @@ const view = {
                     </div>
                   </div>
                 </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  ">
+                    <div style="
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                        white-space:nowrap;
+                    "># Rekomendasi Series</div>
+                    <div class=line></div>
+                  </div>
+                  <div style="
+                  	background:whitesmoke;
+                  	padding:10px;
+                  	height:250px;
+                  	border-radius:10px;
+                  	overflow:auto;
+                  	display:flex;gap:10px;
+                  	border:1px solid gainsboro;
+                  " id=recomendation_parent>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -358,8 +387,10 @@ const view = {
 				this.generateDownloadLinks();
 				this.handleMoreAdminButton();
 				this.handleOnlineStreams();
-				if(this.offsetHeight >= app.content.offsetHeight)
-					app.content.style.minHeight = 'auto';
+				this.generateRecomendation();
+				if(innerHeight <= app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
+					app.content.style.height = 'auto';
+				}else app.content.style.height = '100%';
 				app.removeInitLoading();
 			},
 			handleMoreAdminButton(){
@@ -600,6 +631,61 @@ const view = {
 					return 
 				}
 				return alert('Something is wrong, while trying to delete the series!');
+			},
+			generateRecomendation(){
+				const series_recomended_id = [];
+				let series_id_all = [];
+				param.kategori.forEach((c)=>{
+					series_id_all = series_id_all.concat(app.home_data.data.kategori[c].filter((x)=>x!==param.series_id));
+				})
+				const limit = series_id_all.length >= 6 ? 6 : series_id_all.length;
+				while(series_recomended_id.length < limit){
+					const series_id = series_id_all.getRandom();
+					if(!series_recomended_id.includes(series_id)){
+						series_recomended_id.push(series_id);
+					}
+				}
+				const data = [];
+				series_recomended_id.forEach((id)=>{
+					data.push(app.home_data.data.series[id]);
+				})
+				data.forEach((d)=>{
+					this.recomendation_parent.addChild(makeElement('div',{
+						style:`
+							min-width:200px;
+            	max-width:200px;
+            	height:100%;
+            	background:white;
+            	border-radius:10px 10px 0 0;
+            	overflow: hidden;
+					    position: relative;
+					    cursor: pointer;
+						`,
+						innerHTML:`
+							<div style=width:100%;height:100%;>
+            		<img src="${d.logo_series}" class=fitimage>
+            	</div>
+            	<div style="
+            		position: absolute;
+						    bottom: 0;
+						    width:100%;
+						    background: whitesmoke;
+						    color: black;
+            	">
+            		<div style="
+						    	padding: 10px 10px 0 10px;
+            		">${d.nama}</div>
+            		<div class=smallone style="
+            			margin-top: 10px;
+									padding: 0 10px 10px 10px;
+            		">${d.small_title}</div>
+            	</div>
+						`,data:d,
+						onclick(){
+							app.changeState(`Refresh`,this.data);
+						}
+					}))
+				})
 			}
 		})
 	},
@@ -1605,5 +1691,8 @@ const view = {
 				return text;
 			}
 		})
+	},
+	moreinfo(){
+		
 	}
 }

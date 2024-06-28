@@ -23,11 +23,11 @@ const app = {
 		this.headerInit();
 		await this.getHomeData();
 		this.initCategory();
-		if(location.hash === '#Home'){
-			this.openHome();
-		}else location.hash = '#Home';
-
+		this.initFirstCameUrl();
 		this.buttonInits();
+	},
+	initFirstCameUrl(){
+		this.forcePagingSystem();
 	},
 	openInitLoading(){
 		this.initLoading = this.body.addChild(view.initLoading());
@@ -65,7 +65,7 @@ const app = {
 		this.topLayer.style.background = 'rgb(245 245 249)';
 	},
 	openDetails(query,param){
-		this.content.replaceChild(view.details(param));
+		this.content.replaceChild(view.details(query,param));
 	},
 	openHome(query){
 		this.content.replaceChild(view.home(query));
@@ -90,31 +90,35 @@ const app = {
 		if(data)
 			this.hashParam = data;
 	},
+	forcePagingSystem(){
+		// implementing paramater
+		let hash = location.hash;
+		const query = {};
+		if(location.hash.indexOf('?')!==-1){
+			const splitedhash = location.hash.split('?');
+			const queries = splitedhash[1].split('&');
+			queries.forEach((q)=>{
+				const v = q.split('=');
+				if(v.length===2){
+					v[1] = this.queryValueTypeHandler(v[1]);
+					query[v[0]] = v[1];
+				}
+			})
+			hash = splitedhash[0];
+		}
+
+		this[this.hashNavMeta[hash]](query,this.hashParam);
+		this.app.scrollTop = 0;
+	},
+	isRefresh:false,
 	navigationInitiator(global){
 		window.onhashchange = ()=>{
-			if(location.hash === '#Refresh')
+			if(location.hash === '#Refresh'){
+				this.isRefresh = true;
 				return history.back();
-			// this.hideAndShow();
-			// this.topLayerSetBackground();
-
-			// implementing paramater
-			let hash = location.hash;
-			const query = {};
-			if(location.hash.indexOf('?')!==-1){
-				const splitedhash = location.hash.split('?');
-				const queries = splitedhash[1].split('&');
-				queries.forEach((q)=>{
-					const v = q.split('=');
-					if(v.length===2){
-						v[1] = this.queryValueTypeHandler(v[1]);
-						query[v[0]] = v[1];
-					}
-				})
-				hash = splitedhash[0];
 			}
-
-			this[this.hashNavMeta[hash]](query,this.hashParam);
-			this.app.scrollTop = 0;
+			isRefresh = false;
+			this.forcePagingSystem();
 		}
 	},
 	initCategory(){
