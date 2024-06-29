@@ -22,11 +22,17 @@ const view = {
 		})
 	},
 	home(a){
-		const param = app.get_normalized_home_data(a);
+		const param_data = app.get_normalized_home_data(a);
 		return makeElement('div',{
 			className:'showcase',
 			onadded(){
+				this.handlePagination();
 				this.generateItems();
+				if(innerHeight > app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
+					const height = app.content.offsetHeight - app.content.find('.showcase').offsetHeight;
+					console.log(app.content.offsetHeight,app.content.find('.showcase').offsetHeight);
+				}
+				console.log('called');
 			},
 			getDisplayLen(){
 				const wideList = {
@@ -51,9 +57,13 @@ const view = {
 				return widevalue;
 			},
 			generateItems(){
+				this.clear();
 				let isTrue = true;
 				let index = 0;
 				let displayLen = this.getDisplayLen();
+				console.log(this.pageState);
+				const param = this.usePage?this.pagebydata[this.pageState]:param_data;
+				console.log(this.pagebydata[this.pageState]);
 				let maxloopx = Math.ceil(param.length/displayLen);
 				for(let j=0;j<maxloopx;j++){
 					this.addChild(makeElement('div',{
@@ -82,6 +92,7 @@ const view = {
 		                  <img src="${param[index].logo_series}" class=fitimage>
 		                </div>
 		                <div class=background></div>
+		                <div class=background style=background:none;opacity:1; id=stuffs></div>
 		                <div style="
 		                  position: absolute;
 		                  top: 0;
@@ -98,8 +109,29 @@ const view = {
 		                  </div>
 		                </div>
 									`,
+									autoDefine:true,
+									onadded(){
+										this.pushHotLabel();
+									},
 									onclick(){
 										app.changeState('Details',this.data);
+									},
+									pushHotLabel(){
+										if(new Date().getTime() - this.data.last_edit_stamp < 86400000){
+											this.stuffs.addChild(makeElement('div',{
+												style:`
+													width: 32px;
+											    height: 32px;
+											    padding: 5px;
+											    background: whitesmoke;
+											    border-radius: 50%;
+											    margin: 5px;
+												`,
+												innerHTML:`
+													<img src=./more/media/hotupdate.png class=fitimage>
+												`
+											}))
+										}
 									}
 								}))
 								index += 1;
@@ -124,6 +156,73 @@ const view = {
 							</div>
 						`
 					}))
+				if(this.usePage){
+					this.addChild(makeElement('div',{
+						className:'container',style:'height:100%;min-height:0px;margin-top:10px;',
+						innerHTML:`
+							<div class=seperator></div>
+							<div style=width:100%;display:flex;align-items:flex-end; id=cccc>
+								<div class=content id=content>
+									<div style="
+										width: 100%;
+								    height: 100%;
+								    display: flex;
+								    justify-content: center;
+								    gap: 10px;
+								    align-items:center;
+									" id=page_parent>
+										<div class=goldbutton id=prev style=background:whitesmoke;border:none;box-shadow:none;${!this.pageState?'opacity:0;cursor:unset;':''}>
+											<img src=./more/media/expand.png style=transform:rotate(90deg);>
+										</div>
+										<div>Page ${this.pageState+1} from ${this.pageLength}</div>
+										<div class=goldbutton id=next style=background:whitesmoke;border:none;box-shadow:none;${this.pageState===this.pageLength-1?'opacity:0;cursor:unset;':''}>
+											<img src=./more/media/expand.png style=transform:rotate(-90deg);>
+										</div>
+									</div>
+								</div>
+							</div>
+						`,
+						autoDefine:true,
+						onadded(){
+							this.prev.onclick = ()=>{
+								if(!this.parent.pageState)
+									return
+								this.parent.prev_page();
+							}
+							this.next.onclick = ()=>{
+								if(this.parent.pageState===this.parent.pageLength-1)
+									return
+								this.parent.next_page();
+							}
+						}
+					}))
+				}
+			},
+			handlePagination(){
+				const pageContentLength = 12;
+				const pageLength = Math.ceil(param_data.length/pageContentLength);
+				const pagebydata = [];
+				if(pageLength > 1){
+					this.usePage = true;
+					this.pageState = 0;
+					this.pageLength = pageLength;
+					for(let i=0;i<pageLength;i++){
+						const start = i*pageContentLength;
+						const end = ((i+1)*pageContentLength);
+						pagebydata.push(param_data.slice(start,end));
+					}
+				}
+				this.pagebydata = pagebydata;
+			},
+			next_page(){
+				this.pageState += 1;
+				this.generateItems();
+				app.handleContentHeight();
+			},
+			prev_page(){
+				this.pageState -= 1;
+				this.generateItems();
+				app.handleContentHeight();
 			}
 		})
 	},

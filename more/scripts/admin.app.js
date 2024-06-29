@@ -145,7 +145,7 @@ const app = {
 				})
 			})
 			if(data.valid){
-				this.home_data = data;
+				this.home_data = this.timeProcessData(data);
 
 				// handle all for the category
 				//this.home_data.data.kategori.Semua = [];
@@ -179,7 +179,7 @@ const app = {
 
 		if(a.search && a.key){
 			this.setActiveCategory(null,'Semua');
-			for(let i in this.home_data.data.series){
+			for(let i of this.home_data.data.series_index){
 				const item = Object.assign(this.home_data.data.series[i],{series_id:i});
 				let is_continue = false;
 				for(let i of ['nama','sinopsis','small_title']){
@@ -211,17 +211,14 @@ const app = {
 		}
 		
 		if(a.filter && a.key !== 'Semua'){
-
 			this.setActiveCategory(null,a.key);
-
-
 			this.home_data.data.kategori[decodeURIComponent(a.key)].forEach((id)=>{
 				data.push(Object.assign(this.home_data.data.series[id],{series_id:id}));
 			})
 			return data;
 		}
 		this.setActiveCategory(null,'Semua');
-		for(let i in this.home_data.data.series){
+		for(let i of this.home_data.data.series_index){
 			data.push(Object.assign(this.home_data.data.series[i],{series_id:i}));
 		}
 		return data;
@@ -262,6 +259,51 @@ const app = {
   	if(innerHeight <= this.footer.offsetHeight+this.content.offsetHeight+this.footer.offsetHeight){
 			this.content.style.height = 'auto';
 		}else this.content.style.height = '100%';
+	},
+	timeProcessData(data){
+		const monthsMapping = {
+		  'Januari': 'January',
+		  'Februari': 'February',
+		  'Maret': 'March',
+		  'April': 'April',
+		  'Mei': 'May',
+		  'Juni': 'June',
+		  'Juli': 'July',
+		  'Agustus': 'August',
+		  'September': 'September',
+		  'Oktober': 'October',
+		  'November': 'November',
+		  'Desember': 'December'
+		};
+		const daysMapping = {
+		  'Minggu': 'Sunday',
+		  'Senin': 'Monday',
+		  'Selasa': 'Tuesday',
+		  'Rabu': 'Wednesday',
+		  'Kamis': 'Thursday',
+		  'Jumat': 'Friday',
+		  'Sabtu': 'Saturday'
+		};
+		const index = Object.keys(data.data.series);
+		index.sort((a,b)=>{
+			let a_last_edit = data.data.series[a].last_edit;
+			let b_last_edit = data.data.series[b].last_edit;
+
+			a_last_edit = Date.parse(a_last_edit.replaceAll('.', ':'));
+			b_last_edit = Date.parse(b_last_edit.replaceAll('.', ':'));
+
+			data.data.series[a].last_edit_stamp = a_last_edit;
+			data.data.series[b].last_edit_stamp = b_last_edit;
+
+			if(a_last_edit > b_last_edit)
+				return -1;
+			else if(a_last_edit < b_last_edit)
+				return 1;
+			else
+				return 0;
+		})
+		data.data.series_index = index;
+		return data;
 	}
 }
 
