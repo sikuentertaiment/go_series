@@ -27,10 +27,6 @@ const view = {
 			className:'showcase',
 			onadded(){
 				this.generateItems();
-				if(innerHeight <= app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
-					app.content.style.height = 'auto';
-				}else app.content.style.height = '100%';
-				app.removeInitLoading();
 			},
 			getDisplayLen(){
 				const wideList = {
@@ -138,13 +134,18 @@ const view = {
 			className:'width50',
 			innerHTML:`
 				<nav class=child id=nav></nav>
-				<div style=width:32px;height:32px; class=moremenu>
-					<img src=./more/media/moremenuicon3dots.png class=fitimage>
+				<div style=width:32px;height:32px; class=moremenu id=moremenubutton>
+					<img src=./more/media/moreinfoicon.png class=fitimage>
 				</div>
 			`,
 			autoDefine:true,
 			onadded(){
 				this.pushContent();
+				app.moreinfobutton = this.moremenubutton;
+				this.moremenubutton.onclick = ()=>{
+					app.changeState('Info');
+					app.setActiveCategory(this.moremenubutton);
+				}
 			},
 			pushContent(){
 				if(app.home_data.valid){
@@ -878,8 +879,6 @@ const view = {
 			`,
 			autoDefine:true,
 			onadded(){
-				if(this.offsetHeight >= app.content.offsetHeight)
-					app.content.style.minHeight = 'auto';
 				this.newLinkInit('episode');
 				this.newLinkInit('batch');
 				this.newLinkInit('stream');
@@ -1050,9 +1049,9 @@ const view = {
 							this.series_data.link_stream[index].attribute = attribute;
 
 						const el = this[`link_box_${state}`].findall('.EpsElItem')[index];
-						el.label.innerText = label;
+						el.label.innerHTML = label;
 						el.link.href = link;
-						el.link.innerText = link.slice(0,50)+'...';
+						el.link.innerHTML = link.slice(0,50)+'...';
 						un_edit_link(state,true);
 					}else{
 						const data_obj = {link,label,index};
@@ -1374,8 +1373,6 @@ const view = {
 			`,
 			autoDefine:true,
 			onadded(){
-				if(this.offsetHeight >= app.content.offsetHeight)
-					app.content.style.minHeight = 'auto';
 				this.newLinkInit('episode');
 				this.newLinkInit('batch');
 				this.newLinkInit('stream');
@@ -1549,9 +1546,9 @@ const view = {
 							this.series_data.link_stream[index].attribute = attribute;
 
 						const el = this[`link_box_${state}`].findall('.EpsElItem')[index];
-						el.label.innerText = label;
+						el.label.innerHTML = label;
 						el.link.href = link;
-						el.link.innerText = link.slice(0,50)+'...';
+						el.link.innerHTML = link.slice(0,50)+'...';
 						un_edit_link(state,true);
 					}else{
 						const data_obj = {link,label,index};
@@ -1693,6 +1690,225 @@ const view = {
 		})
 	},
 	moreinfo(){
-		
+		return makeElement('div',{
+			className:'detail',
+			innerHTML:`
+				<div class=container>
+          <div class=seperator></div>
+          <div style=width:100%;>
+            <div style='display: flex;' class=width50>
+              <div style="
+                background: white;
+                border-radius: 8px;
+                width: 100%;
+                border: 1px solid gainsboro;
+              " class=card>
+              	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
+              		<div class=goldbutton style=gap:5px;width:100%; id=edit_information>
+	              		<img src=./more/media/editicon.png width=18>
+	              		Edit Information
+	              	</div>
+              	</div>
+              	<div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin: 20px 0;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Apa itu GoSeries?</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  	${app.home_data.data.webinfo?.whatisgoseries?app.home_data.data.webinfo.whatisgoseries:'-'}
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom:20px;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Cara Download Di GoSeries</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  	${app.home_data.data.webinfo?.howtodownload?app.home_data.data.webinfo.howtodownload:'-'}
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom:20px;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Pasang Iklan</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  	${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      autoDefine:true,
+      onadded(){
+      	if(!app.moreinfobutton.classList.contains('activecategory'))
+      		app.setActiveCategory(app.moreinfobutton);
+      	this.edit_information.onclick = ()=>{
+      		app.changeState('Editwebinformation');
+      	}
+      }
+    })
+	},
+	editwebinformation(){
+		return makeElement('div',{
+			className:'detail',
+			innerHTML:`
+				<div class=container>
+          <div class=seperator></div>
+          <div style=width:100%;>
+            <div style='display: flex;' class=width50>
+              <div style="
+                background: white;
+                border-radius: 8px;
+                width: 100%;
+                border: 1px solid gainsboro;
+              " class=card>
+              	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
+              		<div class=goldbutton style=gap:5px;width:100%; id=edit_information>
+	              		<img src=./more/media/saveicon.png width=18>
+	              		Save Information
+	              	</div>
+              	</div>
+              	<div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin: 20px 0;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Apa itu GoSeries?</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  	<textarea id=whatisgoseries>${app.home_data.data.webinfo?.whatisgoseries?app.home_data.data.webinfo.whatisgoseries:'-'}</textarea>
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom:20px;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Cara Download Di GoSeries</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  	<textarea id=howtodownload>${app.home_data.data.webinfo?.howtodownload?app.home_data.data.webinfo.howtodownload:'-'}</textarea>
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom:20px;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Pasang Iklan</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  	<textarea id=pasangiklan>${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      autoDefine:true,
+      onadded(){
+      	if(!app.moreinfobutton.classList.contains('activecategory'))
+      		app.setActiveCategory(app.moreinfobutton);
+      	this.edit_information.onclick = ()=>{
+      		this.processData();
+      	}
+      },
+      async processData(){
+      	const data = {};
+      	this.findall('textarea').forEach((tx)=>{
+      		data[tx.id] = tx.value;
+      	})
+      	const response = await new Promise((resolve,reject)=>{
+      		cOn.post({
+      			url:app.getReqUrl('editinformationweb'),
+      			someSettings:[['setRequestHeader','content-type','application/json']],
+      			data:jsonstr(data),
+      			onload(){
+      				resolve(this.getJSONResponse());
+      			}
+      		})
+      	})
+      	if(response.valid)
+      		alert(response.message);
+      		return location.reload();
+      	alert('Something is wrong!!!');
+      }
+    })
 	}
 }

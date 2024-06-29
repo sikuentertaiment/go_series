@@ -76,6 +76,15 @@ app.get('/delete',async (req,res)=>{
 	}
 })
 
+app.post('/editinformationweb',async (req,res)=>{
+	try{
+		await db.ref('webinfo').set(req.fields);		
+		res.json({valid:true,message:'Data berhasil disimpan!'});
+	}catch(e){
+		res.json({valid:false});
+	}
+})
+
 // define the functions
 const getFrontData = ()=>{
 	return new Promise(async (resolve,reject)=>{

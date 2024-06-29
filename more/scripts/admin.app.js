@@ -76,6 +76,12 @@ const app = {
 	openEditSeries(){
 		this.content.replaceChild(view.edit());
 	},
+	openMoreInfo(){
+		this.content.replaceChild(view.moreinfo());
+	},
+	openEditWebInformation(){
+		this.content.replaceChild(view.editwebinformation());
+	},
 	initSearchInput(){
 	},
 	hashNavMeta:{
@@ -83,7 +89,9 @@ const app = {
 		'#Home':'openHome',
 		'#Details':'openDetails',
 		'#New':'openNewSeries',
-		'#Edit':'openEditSeries'
+		'#Edit':'openEditSeries',
+		'#Info':'openMoreInfo',
+		'#Editwebinformation':'openEditWebInformation'
 	},
 	changeState(hash,data=null){
 		location.hash = hash;
@@ -108,6 +116,8 @@ const app = {
 		}
 
 		this[this.hashNavMeta[hash]](query,this.hashParam);
+		this.handleContentHeight();
+		this.removeInitLoading();
 		this.app.scrollTop = 0;
 	},
 	isRefresh:false,
@@ -247,6 +257,11 @@ const app = {
 			index += 1;
 		}
 		return string;
+	},
+	handleContentHeight(){
+  	if(innerHeight <= this.footer.offsetHeight+this.content.offsetHeight+this.footer.offsetHeight){
+			this.content.style.height = 'auto';
+		}else this.content.style.height = '100%';
 	}
 }
 
