@@ -198,7 +198,7 @@ footer{
 .bigtitle{
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .category{
@@ -207,6 +207,31 @@ footer{
   width:100%;
   overflow: auto;
   flex-wrap: wrap;
+}
+
+.share{
+  margin-top:15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shareitem .box{
+  display: flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  background:whitesmoke;
+  border:1px solid gainsboro;
+  border-radius:8px;
+  cursor:pointer;
+}
+.shareitem .box div{
+  width:24px;height:24px;
+}
+
+.shareitem .box:hover{
+  background: white;
 }
 
 .line{
@@ -466,6 +491,7 @@ footer{
   background: white;
   border-bottom: 1px solid gainsboro;
   align-items: center;
+  flex-wrap: wrap;
 }
 .downloadbutton{
   padding: 10px 15px;

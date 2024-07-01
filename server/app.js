@@ -85,6 +85,41 @@ app.post('/editinformationweb',async (req,res)=>{
 	}
 })
 
+app.get('/brokenreport',async (req,res)=>{
+	try{
+		const series_id = req.query.series_id;
+		const series = (await db.ref(`series/${series_id}`).get()).val();
+		if(series){
+			const report_time = getDateCreate();
+			const time_stamp = series_id;
+			const data = {
+				series:{
+					nama:series.nama,
+					small_title:series.small_title,
+					series_id,
+				},
+				report_time,
+				time_stamp
+			}
+			if(!(await db.ref(`brokenreport/${time_stamp}`).get()).val())
+				await db.ref(`brokenreport/${time_stamp}`).set(data);
+			return res.json({valid:true,message:'Terimakasih atas laporan anda!'})
+		}
+		res.json({valid:false});
+	}catch(e){
+		res.json({valid:false});
+	}
+})
+
+app.get('/fixbroken',async (req,res)=>{
+	try{
+		await db.ref(`brokenreport/${req.query.series_id}`).remove();
+		res.json({valid:true,message:'Data berhasil difix!'});
+	}catch(e){
+		res.json({valid:false});
+	}
+})
+
 // define the functions
 const getFrontData = ()=>{
 	return new Promise(async (resolve,reject)=>{

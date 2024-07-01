@@ -82,6 +82,9 @@ const app = {
 	openEditWebInformation(){
 		this.content.replaceChild(view.editwebinformation());
 	},
+	openBrokenLinkPage(){
+		this.content.replaceChild(view.brokenreportpage());
+	},
 	initSearchInput(){
 	},
 	hashNavMeta:{
@@ -91,7 +94,8 @@ const app = {
 		'#New':'openNewSeries',
 		'#Edit':'openEditSeries',
 		'#Info':'openMoreInfo',
-		'#Editwebinformation':'openEditWebInformation'
+		'#Editwebinformation':'openEditWebInformation',
+		'#Reportbroken':'openBrokenLinkPage'
 	},
 	changeState(hash,data=null){
 		location.hash = hash;
@@ -304,6 +308,10 @@ const app = {
 		})
 		data.data.series_index = index;
 		return data;
+	},
+	donation:{
+		saweria:'https://saweria.co/goseries',
+		trakteer:'https://trakteer.id/goseries'
 	}
 }
 

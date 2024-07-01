@@ -313,6 +313,29 @@ const view = {
                   <div style=width:100%; class="title">
                     <div class=bigtitle>${param.nama}</div>
                     <div class=category id=categories></div>
+                    <div class=share>
+                    	<div class="bold smallone" style="padding-bottom:7.5px;border-bottom:1px dotted gainsboro;">Bagikan Series Ini Ke Temanmu!</div>
+                    	<div style=display:flex;gap:5px;flex-wrap:wrap; class=shareitem>
+                    		<div class=box id=copyurl style=white-space:nowrap;>
+	                    		<div>
+	                    			<img src=./more/media/shareurl.png class=fitimage>
+	                    		</div>
+	                    		Salin Url
+                    		</div>
+                    		<div class=box id=sharetowa>
+	                    		<div>
+	                    			<img src=./more/media/sharewaicon.png class=fitimage>
+	                    		</div>
+	                    		Whatsapp
+	                    	</div>
+	                    	<div class=box id=sharetotele>
+	                    		<div>
+	                    			<img src=./more/media/shareteleicon.png class=fitimage>
+	                    		</div>
+	                    		Telegram
+	                    	</div>
+                    	</div>
+                    </div>
                   </div>
                 </div>
                 <div class=sinopsis style=padding:20px;>
@@ -460,18 +483,73 @@ const view = {
                         font-weight: bold;
                         color: white;
                         white-space:nowrap;
+                    "># Laporkan Link Mati</div>
+                    <div class=line></div>
+                  </div>
+                  <div style="
+                  	overflow:auto;
+                  	display:flex;gap:10px;
+                  	flex-direction:column;
+                  ">
+                  	<div>Link streaming atau download mati? Bantu kami mengetahuinya!</div>
+                  	<div style=margin-top:5px;display:flex;gap:5px;>
+                  		<div class=goldbutton style=width:100%; id=reportbrokenlink><img src=./more/media/reportlinkicon.png width=32 style=border-radius:50%;>Laporkan Link Error</div>
+                  	</div>
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  ">
+                    <div style="
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                        white-space:nowrap;
                     "># Rekomendasi Series</div>
                     <div class=line></div>
                   </div>
                   <div style="
-                  	background:whitesmoke;
-                  	padding:10px;
                   	height:250px;
-                  	border-radius:10px;
                   	overflow:auto;
                   	display:flex;gap:10px;
-                  	border:1px solid gainsboro;
                   " id=recomendation_parent>
+                  </div>
+                </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  ">
+                    <div style="
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                        white-space:nowrap;
+                    "># Donasi Ke GoSeries</div>
+                    <div class=line></div>
+                  </div>
+                  <div style="
+                  	overflow:auto;
+                  	display:flex;gap:10px;
+                  	flex-direction:column;
+                  ">
+                  	<div>Bantu GoSeries agar selalu bisa beroperasi dan menyajikan jasa dengan baik!</div>
+                  	<div style=margin-top:5px;display:flex;gap:5px;>
+                  		<div class=goldbutton style=justify-content:flex-start;width:100%; id=saweria><img src=./more/media/donationsaweria.jpg width=32 style=border-radius:50%;>Saweria</div>
+                  		<div class=goldbutton style=justify-content:flex-start;width:100%; id=tracteer><img src=./more/media/donationtracteer.png width=32 style=border-radius:50%;>Trakteer</div>
+                  	</div>
                   </div>
                 </div>
               </div>
@@ -488,10 +566,64 @@ const view = {
 				this.handleMoreAdminButton();
 				this.handleOnlineStreams();
 				this.generateRecomendation();
+				this.handleSharing();
+				this.handleDonations();
+				this.handleBrokenLink();
 				if(innerHeight <= app.footer.offsetHeight+app.content.offsetHeight+app.footer.offsetHeight){
 					app.content.style.height = 'auto';
 				}else app.content.style.height = '100%';
 				app.removeInitLoading();
+			},
+			handleBrokenLink(){
+				this.reportbrokenlink.onclick = async ()=>{
+					app.openInitLoading();
+					const response = await new Promise((resolve,reject)=>{
+						cOn.get({
+							url:app.getReqUrl(`brokenreport?series_id=${param.series_id}`),
+							onload(){
+								resolve(this.getJSONResponse());
+							}
+						})
+					})
+					app.removeInitLoading();
+					let message = 'Mohon maaf terjadi kesalahan saat memproses permintaan anda!';
+					if(response.valid)
+						message = response.message;
+					forceRecheck(app.app,message);
+				}
+			},
+			handleDonations(){
+				this.saweria.onclick = ()=>{
+					window.open(app.donation.saweria,'_blank');
+				}
+				this.tracteer.onclick = ()=>{
+					window.open(app.donation.trakteer,'_blank');
+				}
+			},
+			handleSharing(){
+				const link = `${location.hostname}${location.pathname}#Details?series_id=${param.series_id}`;
+				this.copyurl.onclick = async ()=>{
+					if(navigator.clipboard){
+						try {
+				        await navigator.clipboard.writeText(link);
+				        forceRecheck(app.app,'Link berhasil disalin!');
+				    } catch (err) {
+				        forceRecheck(app.app,'Gagal menyalin link series!');
+				    }
+				    return
+					}
+					forceRecheck(app.app,'Gagal menyalin link series!');
+				}
+				this.sharetowa.onclick = ()=>{
+					const message = `Ayo tonton series ${param.nama} di GoSeries!\n${link}`;
+					const url = `whatsapp://send?text=${encodeURIComponent(message)}`;
+					window.open(url,'_blank');
+				}
+				this.sharetotele.onclick = ()=>{
+					const message = `Ayo tonton series ${param.nama} di GoSeries!\n${link}`;
+					const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(message)}`;
+					window.open(url,'_blank');
+				}
 			},
 			handleMoreAdminButton(){
 				if(this.edit_series && this.statistik_series){
@@ -566,9 +698,11 @@ const view = {
 							downloadLink:item.shortenedUrl,
 							style:`${i===param.link_batch.length - 1 ? 'border-bottom:none;' : ''}`,
 							innerHTML:`
-								<div style=white-space:nowrap;overflow:hidden;width:100%;>#${i+1}. ${item.label}</div>
-								<div class=downloadbutton id=downloadbutton>
-									<img src="./more/media/downloadicon.png">Download
+								<div style=white-space:nowrap;overflow:hidden;>#${i+1}. ${item.label}</div>
+								<div>
+									<div class=downloadbutton id=downloadbutton >
+										<img src="./more/media/downloadicon.png">Download
+									</div>
 								</div>
 							`,
 							autoDefine:true,
@@ -597,9 +731,11 @@ const view = {
 							style:`${i===param.link_episode.length - 1 ? 'border-bottom:none;' : ''}`,
 							downloadLink:item.shortenedUrl,
 							innerHTML:`
-								<div>#${i+1}. ${item.label}</div>
-								<div class=downloadbutton id=downloadbutton>
-									<img src="./more/media/downloadicon.png">Download
+								<div style=white-space:nowrap;overflow:hidden;>#${i+1}. ${item.label}</div>
+								<div>
+									<div class=downloadbutton id=downloadbutton >
+										<img src="./more/media/downloadicon.png">Download
+									</div>
 								</div>
 							`,
 							autoDefine:true,
@@ -634,10 +770,12 @@ const view = {
 					this.list_stream_eps_el.addChild(makeElement('div',{
 						innerHTML:`
 							<div style=min-width:24px;>${i+1}.</div>
-							<div style=width:100%;> ${item.label}</div>
-							<div class=goldbutton id=playButton>
-								<img src=./more/media/playstreamicon.png class=fitimage style=width:18px;height:18px;>
-								Tonton
+							<div style=width:100%;white-space:nowrap;> ${item.label}</div>
+							<div>
+								<div class=goldbutton id=playButton>
+									<img src=./more/media/playstreamicon.png class=fitimage style=width:18px;height:18px;>
+									Tonton
+								</div>
 							</div>
 						`,
 						autoDefine:true,
@@ -645,6 +783,9 @@ const view = {
 							padding:5px;
 							display:flex;
 							align-items:center;
+							gap:5px;
+							overflow:hidden;
+							overflow-x:auto;
 						`,
 						index:i,
 						onadded(){
@@ -756,7 +897,7 @@ const view = {
             	max-width:200px;
             	height:100%;
             	background:white;
-            	border-radius:10px 10px 0 0;
+            	border-radius:10px;
             	overflow: hidden;
 					    position: relative;
 					    cursor: pointer;
@@ -771,6 +912,7 @@ const view = {
 						    width:100%;
 						    background: whitesmoke;
 						    color: black;
+						    border-radius:0 0 10px 10px;
             	">
             		<div style="
 						    	padding: 10px 10px 0 10px;
@@ -1874,6 +2016,31 @@ const view = {
                   	${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}
                   </div>
                 </div>
+                <div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom:20px;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Broken Link Reports</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info id=infodrama>
+                  	<div>
+                  		${app.home_data.data.brokenreport?`Ada ${objlen(app.home_data.data.brokenreport)} Laporan.`:'Belum ada laporan!'}
+                  	</div>
+                  	<div class=goldbutton style=margin-top:10px; id=reportpagebutton>Buka Halaman Report</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1885,6 +2052,9 @@ const view = {
       		app.setActiveCategory(app.moreinfobutton);
       	this.edit_information.onclick = ()=>{
       		app.changeState('Editwebinformation');
+      	}
+      	this.reportpagebutton.onclick = ()=>{
+      		app.changeState('Reportbroken');
       	}
       }
     })
@@ -2007,6 +2177,93 @@ const view = {
       		alert(response.message);
       		return location.reload();
       	alert('Something is wrong!!!');
+      }
+    })
+	},
+	brokenreportpage(){
+		return makeElement('div',{
+			className:'detail',
+			innerHTML:`
+				<div class=container>
+          <div class=seperator></div>
+          <div style=width:100%;>
+            <div style='display: flex;' class=width50>
+              <div style="
+                background: white;
+                border-radius: 8px;
+                width: 100%;
+                border: 1px solid gainsboro;
+              " class=card>
+              	<div class=sinopsis style=padding:20px;padding-top:0;>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin: 20px 0;
+                  ">
+                    <div style="
+                    		white-space:nowrap;
+                        background: #00b5ff;
+                        padding: 5px 10px;
+                        border-radius: 0 20px 20px 0;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                    "># Broken links Report</div>
+                    <div class=line></div>
+                  </div>
+                  <div class=info style="display:flex;flex-direction:column;gap:5px;" id=list_parent>
+                  	${app.home_data.data.brokenreport?`Memuat ${objlen(app.home_data.data.brokenreport)} Laporan...`:'Belum ada laporan!'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      autoDefine:true,
+      onadded(){
+      	this.loadReports();
+      },
+      loadReports(){
+      	if(objlen(app.home_data.data.brokenreport||{}) > 0){
+      		this.list_parent.clear();
+      		let index = 0;
+      		for(let i in app.home_data.data.brokenreport){
+      			const data = app.home_data.data.brokenreport[i];
+      			this.list_parent.addChild(makeElement('div',{
+      				data,
+      				innerHTML:`
+      					<div>${index+1}. </div>
+      					<div style=width:100%;overflow:hidden;white-space:nowrap;>${data.series.nama} - <span class=bold>${data.report_time}</span></div>
+      					<div class=goldbutton id=fixed>Fixed</div>
+      				`,
+      				style:`
+      					display:flex;
+      					align-items:center;
+      					padding:5px 8px;
+      					gap:5px;
+      				`,
+      				autoDefine:true,
+      				onadded(){
+      					this.fixed.onclick = async ()=>{
+      						app.openInitLoading();
+      						const response = await new Promise((resolve,reject)=>{
+      							cOn.get({
+      								url:app.getReqUrl(`fixbroken?series_id=${this.data.time_stamp}`),
+      								onload(){
+      									resolve(this.getJSONResponse());
+      								}
+      							})
+      						})
+      						app.removeInitLoading();
+      						forceRecheck(app.app,response.valid?response.message:'Terjadi kesalahan!');
+      					}
+      				}
+      			}))
+      			index += 1;
+      		}
+      	}
       }
     })
 	}

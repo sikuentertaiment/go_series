@@ -467,15 +467,16 @@ const forceRecheck = function(el,msg,inf=false){
 	el.addChild(makeElement('div',{
 		id:'frcel',
 		style:`
-			position:absolute;
-			background:red;
+			position:fixed;
+			background:#00b5ff;
 			color:white;
 			padding:15px;
-			z-index:2;
-			left:0;
+			z-index:100;
+			right:0px;
 			font-size:16px;
 			margin-top: ${50*allfrc.length+1}px;
-			bottom:0;
+			top:10px;
+			border-radius:8px 0 0 8px;
 		`,
 		innerHTML:msg,
 		onadded(){
