@@ -280,6 +280,8 @@ const cOn = {
 		this.init();
 		Object.assign(this.x,config);
 		this.x.open('POST',config.url);
+		// handle ngrok <DEFAULT>
+		this.x.setRequestHeader('ngrok-skip-browser-warning',true);
 		if(this.x.someSettings.length>0){
 			this.x.someSettings.forEach(x=>{
 				this.x[x[0]](x[1],[x[2]]);
@@ -291,6 +293,8 @@ const cOn = {
 		this.init();
 		Object.assign(this.x,config);
 		this.x.open('GET',config.url);
+		// handle ngrok <DEFAULT>
+		this.x.setRequestHeader('ngrok-skip-browser-warning',true);
 		this.x.send();
 	}
 }

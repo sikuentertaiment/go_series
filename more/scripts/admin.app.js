@@ -1,9 +1,7 @@
 const app = {
-	baseUrl:'http://localhost:8080',
-	// baseUrl:'https://topgames-gemasajaas-projects.vercel.app',
-	usernameCheckerUrl:'https://api.kitadigital.my.id/api/game',
+	baseUrl:null,
 	body:find('body'),
-	development:true,
+	development:false,
 	app:find('#app'),
 	topLayer:find('#toplayer'),
 	finderInput:find('#finderInput'),
@@ -17,6 +15,7 @@ const app = {
 		return `${this.baseUrl}/${param}`;
 	},
 	async init(){
+		this.baseUrl = await this.getDynamicServer();
 		this.openInitLoading();
 		this.provideScurities();
 		this.navigationInitiator(window);
@@ -138,6 +137,13 @@ const app = {
 	initCategory(){
 		this.leftheader.addChild(view.categories());
 	},
+	getDynamicServer(){
+		return new Promise((resolve,reject)=>{
+			cOn.get({url:atob(this.fburl),onload(){
+				resolve(this.getJSONResponse());
+			}});
+		})
+	},
 	getHomeData(){
 		return new Promise(async (resolve,reject)=>{
 			const data = await new Promise((resolve,reject)=>{
@@ -226,7 +232,7 @@ const app = {
 			data.push(Object.assign(this.home_data.data.series[i],{series_id:i}));
 		}
 		return data;
-	},
+	},fburl:'aHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcC9zZXJ2ZXIuanNvbg==',
 	queryValueTypeHandler(param){
 		// handling type number
 		if(!isNaN(param)){
