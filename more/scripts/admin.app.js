@@ -11,6 +11,7 @@ const app = {
 	leftheader:find('#leftheader'),
 	newSeriesButton:find('#newseries'),
 	header:find('header'),
+	is_admin:false,
 	getReqUrl(param){
 		return `${this.baseUrl}/${param}`;
 	},
@@ -167,15 +168,28 @@ const app = {
 	headerInit(){
 		this.app.onscroll = (e)=>{
 			if(this.header.offsetHeight < e.target.scrollTop){
+				if(innerWidth < 1258){
+					if(this.header.offsetHeight < e.target.scrollTop){
+						this.header.find('.icon').hide();
+					}
+				}
 				return	this.header.find('#categories_section').hide();
 			}
 			this.header.find('#categories_section').show('flex');
+			if(innerWidth < 1258){
+				this.header.find('.icon').show();
+			}
 		}
+		if(this.is_admin)
+			this.header.find('.icon').findall('div')[1].innerText = 'Admin Panel';
 	},
 	buttonInits(){
 		this.newSeriesButton.onclick = ()=>{
 			location.hash = 'New';
 		}
+		if(!this.is_admin)
+			this.newSeriesButton.remove();
+		else this.newSeriesButton.show('flex');
 		this.finderInput.onchange = ()=>{
 			this.handleFinderChangedState();
 		}

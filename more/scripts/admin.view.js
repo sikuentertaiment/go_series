@@ -233,7 +233,7 @@ const view = {
 			className:'width50',
 			innerHTML:`
 				<nav class=child id=nav></nav>
-				<div style=width:32px;height:32px; class=moremenu id=moremenubutton>
+				<div style=width:32px;height:32px;min-width:32px; class=moremenu id=moremenubutton>
 					<img src=./more/media/moreinfoicon.png class=fitimage>
 				</div>
 			`,
@@ -289,7 +289,7 @@ const view = {
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-              	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
+              	<div style=display:${app.is_admin?'flex':'none'};gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Series
@@ -1944,7 +1944,7 @@ const view = {
                 width: 100%;
                 border: 1px solid gainsboro;
               " class=card>
-              	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
+              	<div style=display:${app.is_admin?'flex':'none'};gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_information>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Information
@@ -2016,7 +2016,7 @@ const view = {
                   	${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=display:${app.is_admin?'flex':'none'};padding:20px;padding-top:0;>
                   <div style="
                     display: flex;
                     align-items: center;

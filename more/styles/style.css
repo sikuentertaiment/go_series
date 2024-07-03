@@ -132,9 +132,9 @@ content{
 footer{
   padding:20px 30px;
   border-top:1px solid gainsboro;
-  font-size:10px;
   display: flex;
   gap:20px;
+  font-size: 10px;
 }
 
 .container{
@@ -363,8 +363,8 @@ footer{
   gap: 5px;
   border: 1px solid #0f96d9;
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
-  font-size: 16px;
   white-space: nowrap;
+  font-size: 16px;
 }
 #beranda{
   padding: 30px 0;
@@ -580,8 +580,18 @@ footer{
 
 
 @media screen and (max-width:1258px){
+  #app{
+    font-size: 11px;
+  }
   header{
     flex-direction: column;
+    padding: 10px;
+  }
+  content{
+    padding:10px;
+  }
+  footer{
+    padding:10px;
   }
   .searchparent{
     width:100%;
@@ -609,5 +619,11 @@ footer{
   }
   .width50{
     width: 100%;
+  }
+  .bigone{
+    font-size: 12px;
+  }
+  .icon{
+    max-width: 100%;
   }
 }
