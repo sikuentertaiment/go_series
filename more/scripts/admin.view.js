@@ -287,7 +287,6 @@ const view = {
                 background: white;
                 border-radius: 8px;
                 width: 100%;
-                border: 1px solid gainsboro;
               " class=card>
               	<div style=display:${app.is_admin?'flex':'none'};gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
@@ -303,7 +302,7 @@ const view = {
 	              		Hapus Series
 	              	</div>
               	</div>
-                <div style="height:300px;border-radius:8px;overflow:hidden;margin:20px;margin-bottom:0px;background:whitesmoke;border:1px solid gainsboro">
+                <div style="height:300px;border-radius:8px;overflow:hidden;margin:20px;margin-bottom:0px;background:whitesmoke;">
                   <img src="${param.banner_series}" class=fitimage style="border-radius:8px;">
                 </div>
                 <div class="titledesc">
@@ -357,7 +356,7 @@ const view = {
                     "># Sinopsis</div>
                     <div class=line></div>
                   </div>
-                  <div style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;">${param.sinopsis}</div>
+                  <div>${param.sinopsis}</div>
                 </div>
                 <div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
@@ -378,7 +377,7 @@ const view = {
                     "># Details Series</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama></div>
+                  <div class=info id=infodrama></div>
                 </div>
                 <div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
@@ -405,7 +404,6 @@ const view = {
                   	<div id=player_navigation style="
                   		background:whitesmoke;
                   		border-radius:0 0 8px 8px;
-                  		border:1px solid gainsboro;
                   		overflow:auto;
                   		overflow-y:hidden;
                   		align-items:center;
@@ -422,7 +420,7 @@ const view = {
                   		</div>
                   		<div id=list_stream_eps_el style="
                   			margin-top:20px;
-                  			padding:10px;border:1px solid gainsboro;
+                  			padding:10px;
                   			background:white;
                   			max-height:300px;
                   			overflow:auto;overflow-x:hidden;
@@ -1437,7 +1435,6 @@ const view = {
                 background: white;
                 border-radius: 8px;
                 width: 100%;
-                border: 1px solid gainsboro;
               " class=card>
               	<div style=display:flex;gap:5px;padding:20px;>
               		<div class=goldbutton style=gap:5px;width:100%; id=savebutton>
@@ -1942,7 +1939,6 @@ const view = {
                 background: white;
                 border-radius: 8px;
                 width: 100%;
-                border: 1px solid gainsboro;
               " class=card>
               	<div style=display:${app.is_admin?'flex':'none'};gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_information>
@@ -1968,7 +1964,7 @@ const view = {
                     "># Apa itu GoSeries?</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  <div class=info id=infodrama>
                   	${app.home_data.data.webinfo?.whatisgoseries?app.home_data.data.webinfo.whatisgoseries:'-'}
                   </div>
                 </div>
@@ -1990,7 +1986,7 @@ const view = {
                     "># Cara Download Di GoSeries</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  <div class=info id=infodrama>
                   	${app.home_data.data.webinfo?.howtodownload?app.home_data.data.webinfo.howtodownload:'-'}
                   </div>
                 </div>
@@ -2012,11 +2008,11 @@ const view = {
                     "># Pasang Iklan</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;" id=infodrama>
+                  <div class=info id=infodrama>
                   	${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}
                   </div>
                 </div>
-                <div class=sinopsis style=display:${app.is_admin?'flex':'none'};padding:20px;padding-top:0;>
+                <div class=sinopsis style=display:${app.is_admin?'block':'none'};padding:20px;padding-top:0;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -2071,7 +2067,6 @@ const view = {
                 background: white;
                 border-radius: 8px;
                 width: 100%;
-                border: 1px solid gainsboro;
               " class=card>
               	<div style=display:flex;gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_information>
@@ -2097,7 +2092,7 @@ const view = {
                     "># Apa itu GoSeries?</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  <div class=info style="display:flex;">
                   	<textarea id=whatisgoseries>${app.home_data.data.webinfo?.whatisgoseries?app.home_data.data.webinfo.whatisgoseries:'-'}</textarea>
                   </div>
                 </div>
@@ -2119,7 +2114,7 @@ const view = {
                     "># Cara Download Di GoSeries</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  <div class=info style="display:flex;">
                   	<textarea id=howtodownload>${app.home_data.data.webinfo?.howtodownload?app.home_data.data.webinfo.howtodownload:'-'}</textarea>
                   </div>
                 </div>
@@ -2141,7 +2136,7 @@ const view = {
                     "># Pasang Iklan</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="padding:20px;background:whitesmoke;border:1px solid gainsboro;border-radius: 10px;display:flex;">
+                  <div class=info style="display:flex;">
                   	<textarea id=pasangiklan>${app.home_data.data.webinfo?.pasangiklan?app.home_data.data.webinfo.pasangiklan:'-'}</textarea>
                   </div>
                 </div>
@@ -2192,7 +2187,6 @@ const view = {
                 background: white;
                 border-radius: 8px;
                 width: 100%;
-                border: 1px solid gainsboro;
               " class=card>
               	<div class=sinopsis style=padding:20px;padding-top:0;>
                   <div style="
@@ -2212,7 +2206,7 @@ const view = {
                     "># Broken links Report</div>
                     <div class=line></div>
                   </div>
-                  <div class=info style="display:flex;flex-direction:column;gap:5px;" id=list_parent>
+                  <div class=info id=list_parent>
                   	${app.home_data.data.brokenreport?`Memuat ${objlen(app.home_data.data.brokenreport)} Laporan...`:'Belum ada laporan!'}
                   </div>
                 </div>
