@@ -153,6 +153,7 @@ const app = {
 			})
 			if(!data)
 				return resolve(false)
+			this.baseUrl = data;
 			resolve(true);
 		})
 	},
@@ -171,7 +172,6 @@ const app = {
 			})
 			if(data.valid){
 				this.home_data = this.timeProcessData(data);
-
 				// handle all for the category
 				//this.home_data.data.kategori.Semua = [];
 				return resolve(true);
