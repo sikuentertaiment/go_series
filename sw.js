@@ -11,17 +11,15 @@ const firebaseConfig = {
   appId: "1:498110941032:web:c9d54222df3d39603038dd"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-    console.log('Received background message ', payload);
-    const notificationTitle = payload.notification.title;
-    const notificationOptions = {
-        body: payload.notification.body,
+self.addEventListener('push', event => {
+    const data = event.data.json();
+    console.log('Received a push message', data);
+    const options = {
+        body: data.notification.body,
         icon: '/firebase-logo.png'
     };
-
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    event.waitUntil(self.registration.showNotification(data.notification.title, options));
 });
