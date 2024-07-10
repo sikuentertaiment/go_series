@@ -2260,5 +2260,27 @@ const view = {
       	}
       }
     })
+	},
+	server404(){
+		return makeElement('div',{
+			id:'initLoading',
+			style:`
+				background:#f5f5f5eb;
+				position:fixed;
+				display:flex;justify-content:center;
+				align-items:center; 
+				top:0;left:0;width:100%;height:100%;z-index:20;
+				flex-direction:column;
+				gap:10px;
+			`,
+			innerHTML:`
+				<div style="
+					font-weight:bold;color:gray;font-size:bigger;
+				">Mohon Maaf</div>
+				<div style="
+					font-weight:bold;color:gray;font-size:smaller;
+				">Saat ini GoSeries sedang dalam perbaikan!</div>
+			`
+		})
 	}
 }

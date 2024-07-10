@@ -16,12 +16,13 @@ const app = {
 		return `${this.baseUrl}/${param}`;
 	},
 	async init(){
-		this.baseUrl = await this.getDynamicServer();
 		this.openInitLoading();
 		this.provideScurities();
+		if(!await this.getDynamicServer() || !await this.getHomeData()){
+			return this.openErrorPage();
+		}
 		this.navigationInitiator(window);
 		this.headerInit();
-		await this.getHomeData();
 		this.initCategory();
 		this.initFirstCameUrl();
 		this.buttonInits();
@@ -139,10 +140,20 @@ const app = {
 		this.leftheader.addChild(view.categories());
 	},
 	getDynamicServer(){
-		return new Promise((resolve,reject)=>{
-			cOn.get({url:atob(this.fburl),onload(){
-				resolve(this.getJSONResponse());
-			}});
+		return new Promise(async (resolve,reject)=>{
+			const data = await new Promise((resolve,reject)=>{
+				cOn.get({url:atob(this.fburl),
+					onload(){
+						resolve(this.getJSONResponse());
+					},
+					onerror(){
+						resolve(false);
+					}
+				});	
+			})
+			if(!data)
+				return resolve(false)
+			resolve(true);
 		})
 	},
 	getHomeData(){
@@ -152,6 +163,9 @@ const app = {
 					url:this.getReqUrl('home'),
 					onload(){
 						resolve(this.getJSONResponse());
+					},
+					onerror(){
+						resolve({valid:false});
 					}
 				})
 			})
@@ -162,7 +176,7 @@ const app = {
 				//this.home_data.data.kategori.Semua = [];
 				return resolve(true);
 			}
-			alert('Something went wrong getting the data!');
+			resolve(false)
 		})
 	},
 	headerInit(){
@@ -328,6 +342,9 @@ const app = {
 		})
 		data.data.series_index = index;
 		return data;
+	},
+	openErrorPage(){
+		this.body.replaceChild(view.server404());
 	},
 	donation:{
 		saweria:'https://saweria.co/goseries',
