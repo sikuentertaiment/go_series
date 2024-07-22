@@ -89,7 +89,7 @@ const view = {
 									style:`max-width:${calculatedWidth}px;min-width:${calculatedWidth}px;`,
 									innerHTML:`
 										<div style=width:100%;height:250px;overflow:hidden;>
-		                  <img src="${param[index].logo_series}" class=fitimage>
+		                  <img src="${param[index].logo_series}" class="fitimage child" id=logo loading=lazy>
 		                </div>
 		                <div class=background></div>
 		                <div class=background style=background:none;opacity:1; id=stuffs></div>
@@ -111,6 +111,9 @@ const view = {
 									`,
 									autoDefine:true,
 									onadded(){
+										this.logo.onerror = ()=>{
+											app.imageErrorHandler(this.logo);
+										}
 										this.pushHotLabel();
 									},
 									onclick(){
@@ -172,11 +175,11 @@ const view = {
 								    align-items:center;
 									" id=page_parent>
 										<div class=goldbutton id=prev style=background:whitesmoke;border:none;box-shadow:none;${!this.pageState?'opacity:0;cursor:unset;':''}>
-											<img src=./more/media/expand.png style=transform:rotate(90deg);>
+											<img src=./more/media/expand.png style=transform:rotate(90deg);width:24px;height:24px;>
 										</div>
-										<div>Page ${this.pageState+1} from ${this.pageLength}</div>
+										<div>Page ${this.pageState+1} Of ${this.pageLength}</div>
 										<div class=goldbutton id=next style=background:whitesmoke;border:none;box-shadow:none;${this.pageState===this.pageLength-1?'opacity:0;cursor:unset;':''}>
-											<img src=./more/media/expand.png style=transform:rotate(-90deg);>
+											<img src=./more/media/expand.png style=transform:rotate(-90deg);width:24px;height:24px;>
 										</div>
 									</div>
 								</div>
@@ -303,11 +306,11 @@ const view = {
 	              	</div>
               	</div>
                 <div style="height:300px;border-radius:8px;overflow:hidden;margin:20px;margin-bottom:0px;background:whitesmoke;">
-                  <img src="${param.banner_series}" class=fitimage style="border-radius:8px;">
+                  <img src="${param.banner_series}" class="fitimage child" style="border-radius:8px;" id=banner_image>
                 </div>
                 <div class="titledesc">
                   <div class="imagecard card">
-                    <img src="${param.logo_series}" class=fitimage style=background:whitesmoke;>
+                    <img src="${param.logo_series}" class="fitimage child" style=background:whitesmoke; id=logo_image>
                   </div>
                   <div style=width:100%; class="title">
                     <div class=bigtitle>${param.nama}</div>
@@ -557,6 +560,13 @@ const view = {
 			`,
 			autoDefine:true,
 			onadded(){
+				// handling error image
+				this.banner_image.onerror = ()=>{
+					app.imageErrorHandler(this.banner_image);
+				}
+				this.logo_image.onerror = ()=>{
+					app.imageErrorHandler(this.logo_image);
+				}
 				this.generateCategories();
 				this.generateInfo();
 				this.initDownloadMenuNav();
@@ -921,6 +931,12 @@ const view = {
             		">${d.small_title}</div>
             	</div>
 						`,data:d,
+						onadded(){
+							const image_thumb = this.find('img');
+							image_thumb.onerror = ()=>{
+								app.imageErrorHandler(image_thumb);
+							}
+						},
 						onclick(){
 							app.changeState(`Refresh`,this.data);
 						}

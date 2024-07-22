@@ -230,7 +230,7 @@ const app = {
 				if(is_continue)
 					continue;
 
-				if(item.kategori.map((x)=>x.toLowerCase()).includes(decodeURIComponent(a.key).toLowerCase())){
+				if(item.kategori && item.kategori.map((x)=>x.toLowerCase()).includes(decodeURIComponent(a.key).toLowerCase())){
 					data.push(item);
 					is_continue = true;
 				}
@@ -349,6 +349,12 @@ const app = {
 	donation:{
 		saweria:'https://saweria.co/goseries',
 		trakteer:'https://trakteer.id/goseries'
+	},
+	imageErrorHandler(image){
+		if(!image.isRefreshed){
+			image.src = './more/media/error_image_.webp';
+			image.isRefreshed = true;
+		}
 	}
 }
 

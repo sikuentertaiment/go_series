@@ -15,7 +15,7 @@
           <div style=display:flex;><span style=color:orange;>g</span>
             <img src=./more/media/favicon.png style=max-width:24px;min-width:24px;object-fit:contain;>
           series</div>
-          <div style=font-size:10px;>Menjadi tempat yang nyaman!</div>
+          <div style=font-size:10px;>Menjadi tempat download ternyaman!</div>
         </div>
         <div style="
           width: 100%;
@@ -50,48 +50,6 @@
     <div id=toplayer>
     </div>
   </body>
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging.js";
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDE_UZikoSx6Uh9Bc6Zwn_v21H0HL-0iM8",
-      authDomain: "warungkuproject-45a28.firebaseapp.com",
-      databaseURL: "https://warungkuproject-45a28-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "warungkuproject-45a28",
-      storageBucket: "warungkuproject-45a28.appspot.com",
-      messagingSenderId: "498110941032",
-      appId: "1:498110941032:web:c9d54222df3d39603038dd"
-    };
-
-    // Initialize Firebase
-    window.firebase = initializeApp(firebaseConfig);
-    window.messaging = getMessaging(firebase);
-
-    // Listen for messages
-    onMessage(messaging, (payload) => {
-        console.log('Message received. ', payload);
-        // Customize notification here
-        const notificationTitle = payload.notification.title;
-        const notificationOptions = {
-            body: payload.notification.body,
-            icon: '/firebase-logo.png'
-        };
-
-        new Notification(notificationTitle, notificationOptions);
-    });
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-            .then((registration) => {
-                console.log('Service Worker registration successful with scope: ', registration.scope);
-            }).catch((err) => {
-                console.log('Service Worker registration failed: ', err);
-            });
-    }
-  </script>
   <script src=./more/scripts/infinity.js></script>
   <script src=./more/scripts/admin.view.js></script>
   <script src=./more/scripts/admin.app.js></script>
