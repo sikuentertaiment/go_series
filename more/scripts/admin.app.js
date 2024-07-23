@@ -207,6 +207,9 @@ const app = {
 		this.finderInput.onchange = ()=>{
 			this.handleFinderChangedState();
 		}
+		this.finderInput.onclick = ()=>{
+			this.finderInput.value = '';
+		}
 	},
 	handleFinderChangedState(){
 		const query = this.finderInput.value;
