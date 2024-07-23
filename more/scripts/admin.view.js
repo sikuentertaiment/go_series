@@ -105,7 +105,7 @@ const view = {
 		                ">
 		                  <div style=padding:10px;color:white;background:#00000087;>
 		                    <div class=bigone>${param[index].nama}</div>
-		                    <div class=smallone>${param[index].small_title}</div>
+		                    <div class=smallone>${param[index].keterangan['Updated on'] ? param[index].keterangan['Updated on'] : param[index].keterangan['Released on'] ? param[index].keterangan['Released on'] : param[index].keterangan['Released'] ? param[index].keterangan['Released'] : '-'}, ${param[index].keterangan['Status']}</div>
 		                  </div>
 		                </div>
 									`,
@@ -928,7 +928,7 @@ const view = {
             		<div class=smallone style="
             			margin-top: 10px;
 									padding: 0 10px 10px 10px;
-            		">${d.small_title}</div>
+            		">${d.keterangan['Updated on'] ? d.keterangan['Updated on'] : d.keterangan['Released on'] ? d.keterangan['Released on'] : d.keterangan['Released'] ? d.keterangan['Released'] : '-'}, ${d.keterangan['Status']}</div>
             	</div>
 						`,data:d,
 						onadded(){
