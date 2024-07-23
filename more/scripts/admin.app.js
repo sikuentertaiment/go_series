@@ -11,9 +11,12 @@ const app = {
 	leftheader:find('#leftheader'),
 	newSeriesButton:find('#newseries'),
 	header:find('header'),
-	is_admin:false,
+	is_admin:false,isUseClient:true,
 	getReqUrl(param){
 		return `${this.baseUrl}/${param}`;
+	},
+	getReqClientUrl(){
+		return `${atob(this.fbclienturl)}`;
 	},
 	async init(){
 		this.openInitLoading();
@@ -45,16 +48,24 @@ const app = {
 		this.body.style.overflow = 'auto';
 	},
 	provideScurities(){
+		let keys = [];
 		document.onkeydown = (e)=>{
-			if(!this.development && e.key === 'F12'){
-				alert('Galat!!! Akses terbatas!');
-				e.preventDefault();	
+			if(!keys.includes(e.key)){
+				keys.push(e.key);
 			}
+
+			if(keys.toString().search('F12') !== -1)
+				return e.preventDefault();
+			if(keys.toString().search('Control,Shift,I')!==-1)
+				e.preventDefault();
+		}
+		document.onkeyup = (e)=>{
+			keys = keys.filter((key)=>key !== e.key)
 		}
 		//some defense code.
 		if(!this.development){
 			document.oncontextmenu = (e)=>{
-				alert('Galat!!! Akses terbatas!');
+				// alert('Galat!!! Akses terbatas!');
 				e.preventDefault();
 			}
 		}
@@ -141,6 +152,8 @@ const app = {
 	},
 	getDynamicServer(){
 		return new Promise(async (resolve,reject)=>{
+			if(this.isUseClient)
+				return resolve(true)
 			const data = await new Promise((resolve,reject)=>{
 				cOn.get({url:atob(this.fburl),
 					onload(){
@@ -158,6 +171,28 @@ const app = {
 		})
 	},
 	getHomeData(){
+		if(this.isUseClient){
+			return new Promise(async(resolve,reject)=>{
+				const data = await new Promise((resolve,reject)=>{
+					cOn.get({
+						url:this.getReqClientUrl(),
+						onload(){
+							resolve({valid:true,data:this.getJSONResponse()});
+						},
+						onerror(){
+							resolve({valid:false});
+						}
+					})
+				})
+				if(data.valid){
+					this.home_data = this.timeProcessData(data);
+					// handle all for the category
+					//this.home_data.data.kategori.Semua = [];
+					return resolve(true);
+				}
+				resolve(false)
+			})
+		}
 		return new Promise(async (resolve,reject)=>{
 			const data = await new Promise((resolve,reject)=>{
 				cOn.get({
@@ -264,6 +299,7 @@ const app = {
 		}
 		return data;
 	},fburl:'aHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcC9zZXJ2ZXIuanNvbg==',
+	fbclienturl:'aHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcC8uanNvbg==',
 	queryValueTypeHandler(param){
 		// handling type number
 		if(!isNaN(param)){
