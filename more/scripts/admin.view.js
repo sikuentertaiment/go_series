@@ -89,7 +89,7 @@ const view = {
 									style:`max-width:${calculatedWidth}px;min-width:${calculatedWidth}px;`,
 									innerHTML:`
 										<div style=width:100%;height:250px;overflow:hidden;>
-		                  <img src="${param[index].logo_series}" class="fitimage child" id=logo loading=lazy>
+		                  <img src="${param[index].logo_series.replaceAll('tv6','tv7')}" class="fitimage child" id=logo loading=lazy>
 		                </div>
 		                <div class=background></div>
 		                <div class=background style=background:none;opacity:1; id=stuffs></div>
@@ -287,11 +287,10 @@ const view = {
           <div style=width:100%;>
             <div style='display: flex;' class=width50>
               <div style="
-                background: white;
                 border-radius: 8px;
                 width: 100%;
-              " class=card>
-              	<div style=display:${app.is_admin?'flex':'none'};gap:5px;margin:20px;margin-bottom:0;overflow:auto;>
+              ">
+              	<div style=display:${app.is_admin?'flex':'none'};gap:5px;overflow:auto;>
               		<div class=goldbutton style=gap:5px;width:100%; id=edit_series>
 	              		<img src=./more/media/editicon.png width=18>
 	              		Edit Series
@@ -305,7 +304,7 @@ const view = {
 	              		Hapus Series
 	              	</div>
               	</div>
-                <div style="height:300px;border-radius:8px;overflow:hidden;margin:20px;margin-bottom:0px;background:whitesmoke;">
+                <div style="height:300px;border-radius:8px;overflow:hidden;background:whitesmoke;">
                   <img src="${param.banner_series}" class="fitimage child" style="border-radius:8px;" id=banner_image>
                 </div>
                 <div class="titledesc">
@@ -340,7 +339,7 @@ const view = {
                     </div>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -361,7 +360,7 @@ const view = {
                   </div>
                   <div>${param.sinopsis}</div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -382,7 +381,7 @@ const view = {
                   </div>
                   <div class=info id=infodrama></div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -405,7 +404,7 @@ const view = {
                   	<div style="width:100%;height:315px;max-height:315px;min-height:315px;background:black;border-radius:8px 8px 0px 0px;overflow:hidden;" id=iframe_player_parent>
                   	</div>
                   	<div id=player_navigation style="
-                  		background:whitesmoke;
+                  		background:white;
                   		border-radius:0 0 8px 8px;
                   		overflow:auto;
                   		overflow-y:hidden;
@@ -424,7 +423,7 @@ const view = {
                   		<div id=list_stream_eps_el style="
                   			margin-top:20px;
                   			padding:10px;
-                  			background:white;
+                  			background:whitesmoke;
                   			max-height:300px;
                   			overflow:auto;overflow-x:hidden;
                   			border-radius:0 0 10px 10px;
@@ -433,7 +432,7 @@ const view = {
                   	</div>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -469,7 +468,7 @@ const view = {
                     </div>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -498,7 +497,7 @@ const view = {
                   	</div>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;
@@ -523,7 +522,7 @@ const view = {
                   " id=recomendation_parent>
                   </div>
                 </div>
-                <div class=sinopsis style=padding:20px;padding-top:0;>
+                <div class=sinopsis style=margin-bottom:20px;>
                   <div style="
                     display: flex;
                     align-items: center;

@@ -391,8 +391,23 @@ const app = {
 	},
 	imageErrorHandler(image){
 		if(!image.isRefreshed){
-			image.src = './more/media/error_image_.webp';
-			image.isRefreshed = true;
+			if(!image.errLoop)
+				image.errLoop = 10;
+			image.errLoop -= 1;
+			let subdomain = image.src.indexOf('/tv');
+			let isError = false;
+			if(subdomain === -1)
+				isError = true;
+			else{
+				subdomain = image.src.slice(subdomain + 1, subdomain+4);
+				const newImageUrl = image.src.replace(subdomain,`tv${image.errLoop}`);
+				image.src = newImageUrl;
+			}
+			console.clear();
+			if(image.errLoop === 1 || isError){
+				image.src = './more/media/error_image_.webp';
+				image.isRefreshed = true;
+			}
 		}
 	}
 }

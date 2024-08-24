@@ -474,11 +474,12 @@ footer{
 
 .downloadbody{
   max-height: 500px;
-  background: whitesmoke;
+  background: white;
   border-radius: 0 0 10px 10px;
   border-top:0;
   overflow:auto;
   position: relative;
+  padding:0 20px;
 }
 
 .downloaditem{
