@@ -29,6 +29,7 @@ const app = {
 		this.initCategory();
 		this.initFirstCameUrl();
 		this.buttonInits();
+		this.initFirebase();
 	},
 	initFirstCameUrl(){
 		this.forcePagingSystem();
@@ -300,6 +301,7 @@ const app = {
 		return data;
 	},fburl:'aHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcC9zZXJ2ZXIuanNvbg==',
 	fbclienturl:'aHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcC8uanNvbg==',
+	fbconfig:'eyJhcGlLZXkiOiJBSXphU3lERV9VWmlrb1N4NlVoOUJjNlp3bl92MjFIMEhMLTBpTTgiLCJhdXRoRG9tYWluIjoid2FydW5na3Vwcm9qZWN0LTQ1YTI4LmZpcmViYXNlYXBwLmNvbSIsImRhdGFiYXNlVVJMIjoiaHR0cHM6Ly93YXJ1bmdrdXByb2plY3QtNDVhMjgtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcCIsInByb2plY3RJZCI6IndhcnVuZ2t1cHJvamVjdC00NWEyOCIsInN0b3JhZ2VCdWNrZXQiOiJ3YXJ1bmdrdXByb2plY3QtNDVhMjguYXBwc3BvdC5jb20iLCJtZXNzYWdpbmdTZW5kZXJJZCI6IjQ5ODExMDk0MTAzMiIsImFwcElkIjoiMTo0OTgxMTA5NDEwMzI6d2ViOmM5ZDU0MjIyZGYzZDM5NjAzMDM4ZGQiLCJtZWFzdXJlbWVudElkIjoiRy1YMUgwQjRNWEVRIn0=',
 	queryValueTypeHandler(param){
 		// handling type number
 		if(!isNaN(param)){
@@ -409,6 +411,13 @@ const app = {
 				image.isRefreshed = true;
 			}
 		}
+	},
+	getConfig(){
+		return JSON.parse(atob(this.fbconfig));
+	},
+	initFirebase(){
+		this.fapp = firebase.init(this.getConfig());
+		this.fanalytics = firebase.analytics(this.fapp);
 	}
 }
 
